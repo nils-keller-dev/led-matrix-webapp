@@ -1,5 +1,4 @@
 import { useSignal } from "@preact/signals";
-import Counter from "../islands/Counter.tsx";
 import { Slider } from "../islands/Slider.tsx";
 
 export default function Home() {
@@ -24,7 +23,6 @@ export default function Home() {
           Try updating this message in the
           <code class="mx-2">./routes/index.tsx</code> file, and refresh.
         </p>
-        <Counter count={count} />
         <Slider
           min={0}
           max={100}
