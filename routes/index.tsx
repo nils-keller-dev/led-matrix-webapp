@@ -1,10 +1,16 @@
 import { useSignal } from "@preact/signals";
 import Counter from "../islands/Counter.tsx";
+import { Slider } from "../islands/Slider.tsx";
 
 export default function Home() {
   const count = useSignal(3);
+
+  const handleSliderChange = (newValue: number) => {
+    console.log("Slider value:", newValue);
+  };
+
   return (
-    <div class="px-4 py-8 mx-auto bg-[#86efac]">
+    <div class="px-4 py-8 mx-auto bg-background text-primary">
       <div class="max-w-screen-md mx-auto flex flex-col items-center justify-center">
         <img
           class="my-6"
@@ -19,6 +25,12 @@ export default function Home() {
           <code class="mx-2">./routes/index.tsx</code> file, and refresh.
         </p>
         <Counter count={count} />
+        <Slider
+          min={0}
+          max={100}
+          onChange={handleSliderChange}
+        >
+        </Slider>
       </div>
     </div>
   );
