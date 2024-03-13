@@ -4,7 +4,10 @@ export default function App({ Component }: PageProps) {
     <html class="h-full overflow-hidden">
       <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0 user-scalable=no"
+        />
         <title>led-matrix-webapp</title>
         <link rel="stylesheet" href="/styles.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
