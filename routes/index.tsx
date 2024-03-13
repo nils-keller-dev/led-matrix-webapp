@@ -1,6 +1,7 @@
 import { Sun, SunDim } from "https://esm.sh/lucide-preact";
 import { Carousel } from "../islands/Carousel.tsx";
 import { Slider } from "../islands/Slider.tsx";
+import { Drawer } from "../islands/Drawer.tsx";
 
 export default function Home() {
   const carouselItems = [
@@ -29,17 +30,22 @@ export default function Home() {
   return (
     <div class="bg-background text-primary h-full flex items-center">
       <Carousel items={carouselItems} />
-      <div class="w-full p-7 pt-4 rounded-t-xl border border-secondary border-b-0 fixed bottom-0 bg-background">
-        <div class="bg-secondary w-24 h-2 rounded-full mx-auto mb-7" />
-        <span class="flex gap-3 flex-row">
-          <SunDim class="text-muted-foreground shrink-0" />
-          <Slider
-            min={0}
-            max={100}
-          />
-          <Sun class="text-muted-foreground shrink-0" />
-        </span>
-      </div>
+      <Drawer
+        header={
+          <div class="flex gap-3 flex-row">
+            <SunDim class="text-muted-foreground shrink-0" />
+            <Slider
+              min={0}
+              max={100}
+            />
+            <Sun class="text-muted-foreground shrink-0" />
+          </div>
+        }
+      >
+        <div class="h-[100px] flex items-end justify-center text-muted-foreground">
+          Hier könnte Ihre Werbung stehen
+        </div>
+      </Drawer>
     </div>
   );
 }
