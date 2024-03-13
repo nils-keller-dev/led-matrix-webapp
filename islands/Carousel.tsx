@@ -47,7 +47,7 @@ export function Carousel({
         )}
       </div>
       <div class="flex justify-center gap-1 mt-2">
-        {items.map((item, index) => (
+        {items.map((_, index) => (
           <div
             class={`size-2 rounded-full ${
               index === activeItem.value
