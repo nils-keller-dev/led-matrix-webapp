@@ -9,10 +9,12 @@ interface CarouselItem {
 
 interface CarouselProps {
   items: CarouselItem[];
+  onClickSettings?: () => void;
 }
 
 export function Carousel({
   items,
+  onClickSettings,
 }: CarouselProps) {
   const activeItem = useSignal(0);
 
@@ -41,7 +43,10 @@ export function Carousel({
           <ArrowRight />
         </IconButton>
         {items[activeItem.value].hasSettingsIcon && (
-          <IconButton class="absolute top-2 right-2">
+          <IconButton
+            class="absolute top-2 right-2"
+            onClick={onClickSettings}
+          >
             <Settings2 />
           </IconButton>
         )}

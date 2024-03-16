@@ -36,6 +36,8 @@ export function Slider(
 
   const startDrag = (e: MouseEvent | TouchEvent) => {
     e.preventDefault();
+    e.stopPropagation();
+
     handleDrag(e);
     addEventListener("mousemove", handleDrag);
     addEventListener("touchmove", handleDrag);
