@@ -98,8 +98,6 @@ export function Drawer(
   };
 
   const startDrag = (e: MouseEvent | TouchEvent) => {
-    e.preventDefault();
-
     previousDragY.value = getYPosition(e);
     drawerRef.current?.style.setProperty("transition", "none");
 
@@ -140,6 +138,10 @@ export function Drawer(
     onChangeIsExpanded(true);
   };
 
+  const toggle = () => {
+    isExpanded ? collapse() : expand();
+  };
+
   return (
     <div class="size-full absolute pointer-events-none">
       {currentHeight.value > collapsedHeight.value && (
@@ -154,7 +156,10 @@ export function Drawer(
         onTouchStart={startDrag}
         class="pb-[30px] w-full px-7 pt-4 rounded-t-xl border border-secondary border-b-0 fixed top-full bg-background -translate-y-[--drawer-visible-height] transition-transform pointer-events-auto"
       >
-        <div class="bg-secondary w-24 h-2 rounded-full mx-auto mb-7" />
+        <div
+          class="bg-secondary w-24 h-2 rounded-full mx-auto mb-7"
+          onClick={toggle}
+        />
         <div class="mb-7">
           {header}
         </div>
