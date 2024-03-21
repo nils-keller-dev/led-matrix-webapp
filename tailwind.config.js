@@ -1,7 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  purge: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
-  content: [],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     colors: {
       primary: '#fafafa',
