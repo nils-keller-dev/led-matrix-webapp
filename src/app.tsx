@@ -1,13 +1,13 @@
 import { useSignal } from '@preact/signals'
-import { Sun, SunDim, LoaderCircle } from 'lucide-preact'
+import { LoaderCircle, Sun, SunDim } from 'lucide-preact'
 import { useEffect } from 'preact/hooks'
 import { getData } from './api/data.get'
 import { postJson } from './api/json.post'
 import { Carousel } from './components/Carousel'
 import { Drawer } from './components/Drawer'
 import { Slider } from './components/Slider'
-import { Data } from './constants/interfaces/Data'
 import { carouselItems } from './constants/CarouselItems'
+import { Data } from './constants/interfaces/Data'
 
 export default function App() {
   const data = useSignal<Data | null>(null)
@@ -44,14 +44,12 @@ export default function App() {
             header={
               <div className="flex gap-3 flex-row">
                 <SunDim class="text-muted-foreground shrink-0" />
-                {data.value?.brightness && (
-                  <Slider
-                    min={0}
-                    max={100}
-                    initialValue={data.value?.brightness || 0}
-                    onChange={updateBrightness}
-                  />
-                )}
+                <Slider
+                  min={0}
+                  max={100}
+                  initialValue={data.value?.brightness}
+                  onChange={updateBrightness}
+                />
                 <Sun class="text-muted-foreground shrink-0" />
               </div>
             }
