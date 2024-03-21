@@ -1,9 +1,7 @@
-import { type Config } from "tailwindcss";
-
+/** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "{routes,islands,components}/**/*.{ts,tsx}",
-  ],
+  purge: [ './index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  content: [],
   theme: {
     colors: {
       primary: "#fafafa",
@@ -15,4 +13,6 @@ export default {
       abril: ["Abril Fatface", "sans-serif"],
     }
   },
-} satisfies Config;
+  plugins: [],
+}
+

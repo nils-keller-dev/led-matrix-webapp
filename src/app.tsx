@@ -1,10 +1,10 @@
-import { useSignal } from "@preact/signals";
 import { Sun, SunDim } from "https://esm.sh/lucide-preact";
-import { Carousel } from "../islands/Carousel.tsx";
-import { Drawer } from "../islands/Drawer.tsx";
-import { Slider } from "../islands/Slider.tsx";
+import { Drawer } from "./components/Drawer.tsx";
+import { Slider } from "./components/Slider.tsx";
+import { Carousel } from "./components/Carousel.tsx";
+import { useSignal } from "@preact/signals";
 
-export default function Home() {
+export default function App() {
   const carouselItems = [
     {
       title: "Clock",
