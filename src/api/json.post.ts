@@ -1,4 +1,4 @@
-import { Data } from '../interfaces/Data'
+import { Data } from '../constants/interfaces/Data'
 
 export const postJson = async (data: Data) => {
   return fetch('/json', {
