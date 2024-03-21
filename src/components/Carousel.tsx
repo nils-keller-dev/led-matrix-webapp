@@ -1,6 +1,7 @@
 import { useSignal } from "@preact/signals";
-import { ArrowLeft, ArrowRight, Settings2 } from "https://esm.sh/lucide-preact";
+import { ArrowLeft, ArrowRight, Settings2 } from "lucide-preact";
 import { IconButton } from "../components/IconButton.tsx";
+import { h } from "preact";
 
 interface CarouselItem {
   title: string;
@@ -27,31 +28,31 @@ export function Carousel({
   };
 
   return (
-    <div class="w-full p-7 aspect-square">
-      <div class="text-7xl font-abril size-full  border border-secondary rounded-3xl flex items-center justify-center relative">
+    <div className="w-full p-7 aspect-square">
+      <div className="text-7xl font-abril size-full  border border-secondary rounded-3xl flex items-center justify-center relative">
         {items[activeItem.value].title}
         <IconButton
-          class="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2"
+          className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2"
           onClick={previousItem}
         >
           <ArrowLeft />
         </IconButton>
         <IconButton
-          class="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2"
+          className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2"
           onClick={nextItem}
         >
           <ArrowRight />
         </IconButton>
         {items[activeItem.value].hasSettingsIcon && (
           <IconButton
-            class="absolute top-2 right-2"
+            className="absolute top-2 right-2"
             onClick={onClickSettings}
           >
             <Settings2 />
           </IconButton>
         )}
       </div>
-      <div class="flex justify-center gap-1 mt-2">
+      <div className="flex justify-center gap-1 mt-2">
         {items.map((_, index) => (
           <div
             class={`size-2 rounded-full ${

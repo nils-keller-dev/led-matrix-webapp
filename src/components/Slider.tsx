@@ -1,4 +1,5 @@
 import { useSignal } from "@preact/signals";
+import { h } from "preact";
 import { useRef } from "preact/hooks";
 
 interface SliderProps {
@@ -63,13 +64,13 @@ export function Slider(
   return (
     <span
       ref={sliderRef}
-      class="relative flex items-center w-full"
+      className="relative flex items-center w-full"
       onMouseDown={startDrag}
       onTouchStart={startDrag}
     >
-      <span class="relative h-2 w-full overflow-hidden rounded-full bg-secondary">
+      <span className="relative h-2 w-full overflow-hidden rounded-full bg-secondary">
         <span
-          class="absolute h-full bg-primary"
+          className="absolute h-full bg-primary"
           style={{ width: `${percent}%` }}
         />
       </span>
@@ -77,9 +78,9 @@ export function Slider(
         style={{
           left: `calc(${percent}% + ${dynamicOffset}px)`,
         }}
-        class="absolute -translate-x-1/2"
+        className="absolute -translate-x-1/2"
       >
-        <span class="block h-5 w-5 rounded-full border-2 border-primary bg-background" />
+        <span className="block h-5 w-5 rounded-full border-2 border-primary bg-background" />
       </span>
     </span>
   );

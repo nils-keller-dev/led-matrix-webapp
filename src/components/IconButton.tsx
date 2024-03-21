@@ -1,4 +1,4 @@
-import { JSX } from "preact";
+import { JSX, h } from "preact";
 
 export function IconButton(props: JSX.HTMLAttributes<HTMLButtonElement>) {
   const styles =

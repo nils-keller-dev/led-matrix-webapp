@@ -1,8 +1,11 @@
-import { Sun, SunDim } from "https://esm.sh/lucide-preact";
+import { Sun, SunDim } from "lucide-preact";
 import { Drawer } from "./components/Drawer.tsx";
 import { Slider } from "./components/Slider.tsx";
 import { Carousel } from "./components/Carousel.tsx";
 import { useSignal } from "@preact/signals";
+import { IconButton } from "./components/IconButton.tsx";
+import { TestTube } from "lucide-preact";
+import { h } from "preact";
 
 export default function App() {
   const carouselItems = [
@@ -39,26 +42,26 @@ export default function App() {
   };
 
   return (
-    <div class="bg-background text-primary h-full flex items-center">
+    <div className="bg-background text-primary h-full flex items-center">
       <Carousel
         items={carouselItems}
         onClickSettings={onClickCarouselSettings}
       />
       <Drawer
         header={
-          <div class="flex gap-3 flex-row">
-            <SunDim class="text-muted-foreground shrink-0" />
+          <div className="flex gap-3 flex-row">
+            <SunDim className="text-muted-foreground shrink-0" />
             <Slider
               min={0}
               max={100}
             />
-            <Sun class="text-muted-foreground shrink-0" />
+            <Sun className="text-muted-foreground shrink-0" />
           </div>
         }
         isExpanded={isDrawerOpen.value}
         onChangeIsExpanded={onChangeIsDrawerExpanded}
       >
-        <div class="h-[100px] flex items-end justify-center text-muted-foreground">
+        <div className="h-[100px] flex items-end justify-center text-muted-foreground">
           Hier könnte Ihre Werbung stehen
         </div>
       </Drawer>
