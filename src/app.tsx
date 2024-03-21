@@ -1,45 +1,42 @@
-import { Sun, SunDim } from "lucide-preact";
-import { Drawer } from "./components/Drawer.tsx";
-import { Slider } from "./components/Slider.tsx";
-import { Carousel } from "./components/Carousel.tsx";
-import { useSignal } from "@preact/signals";
-import { IconButton } from "./components/IconButton.tsx";
-import { TestTube } from "lucide-preact";
-import { h } from "preact";
+import { useSignal } from '@preact/signals'
+import { Sun, SunDim } from 'lucide-preact'
+import { Carousel } from './components/Carousel'
+import { Drawer } from './components/Drawer'
+import { Slider } from './components/Slider'
 
 export default function App() {
   const carouselItems = [
     {
-      title: "Clock",
-      hasSettingsIcon: true,
+      title: 'Clock',
+      hasSettingsIcon: true
     },
     {
-      title: "Music",
-      hasSettingsIcon: false,
+      title: 'Music',
+      hasSettingsIcon: false
     },
     {
-      title: "Image",
-      hasSettingsIcon: true,
+      title: 'Image',
+      hasSettingsIcon: true
     },
     {
-      title: "Text",
-      hasSettingsIcon: true,
+      title: 'Text',
+      hasSettingsIcon: true
     },
     {
-      title: "Idle",
-      hasSettingsIcon: false,
-    },
-  ];
+      title: 'Idle',
+      hasSettingsIcon: false
+    }
+  ]
 
-  const isDrawerOpen = useSignal(false);
+  const isDrawerOpen = useSignal(false)
 
   const onClickCarouselSettings = () => {
-    isDrawerOpen.value = true;
-  };
+    isDrawerOpen.value = true
+  }
 
   const onChangeIsDrawerExpanded = (isExpanded: boolean) => {
-    isDrawerOpen.value = isExpanded;
-  };
+    isDrawerOpen.value = isExpanded
+  }
 
   return (
     <div className="bg-background text-primary h-full flex items-center">
@@ -51,10 +48,7 @@ export default function App() {
         header={
           <div className="flex gap-3 flex-row">
             <SunDim className="text-muted-foreground shrink-0" />
-            <Slider
-              min={0}
-              max={100}
-            />
+            <Slider min={0} max={100} />
             <Sun className="text-muted-foreground shrink-0" />
           </div>
         }
@@ -66,5 +60,5 @@ export default function App() {
         </div>
       </Drawer>
     </div>
-  );
+  )
 }
