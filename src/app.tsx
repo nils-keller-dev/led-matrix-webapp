@@ -3,11 +3,11 @@ import { LoaderCircle, Sun, SunDim } from 'lucide-preact'
 import { useEffect } from 'preact/hooks'
 import { getData } from './api/data.get'
 import { postJson } from './api/json.post'
-import { Carousel } from './components/Carousel'
 import { Drawer } from './components/Drawer'
 import { Slider } from './components/Slider'
 import { carouselItems } from './constants/CarouselItems'
 import { Data } from './constants/interfaces/Data'
+import { Carousel } from './components/Carousel'
 
 export default function App() {
   const data = useSignal<Data | null>(null)
@@ -37,7 +37,8 @@ export default function App() {
       {data.value ? (
         <div className="size-full flex items-center">
           <Carousel
-            items={carouselItems}
+            slides={carouselItems}
+            options={{ loop: true }}
             onClickSettings={onClickCarouselSettings}
           />
           <Drawer

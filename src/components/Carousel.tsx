@@ -1,56 +1,94 @@
 import { useSignal } from '@preact/signals'
+import { EmblaOptionsType } from 'embla-carousel'
+import useEmblaCarousel from 'embla-carousel-react'
 import { ArrowLeft, ArrowRight, Settings2 } from 'lucide-preact'
-import { IconButton } from '../components/IconButton'
+import { useEffect } from 'preact/hooks'
+import { IconButton } from './IconButton'
 
-interface CarouselItem {
+type CarouselItem = {
   title: string
   hasSettingsIcon: boolean
 }
 
-interface CarouselProps {
-  items: CarouselItem[]
+type CarouselProps = {
+  slides: CarouselItem[]
+  options?: EmblaOptionsType
   onClickSettings?: () => void
 }
 
-export function Carousel({ items, onClickSettings }: CarouselProps) {
-  const activeItem = useSignal(0)
+export function Carousel({ slides, options, onClickSettings }: CarouselProps) {
+  const [emblaRef, emblaApi] = useEmblaCarousel(options)
 
-  const nextItem = () => {
-    activeItem.value = (activeItem.value + 1) % items.length
+  const selectedIndex = useSignal(0)
+  const scrollSnaps = useSignal<number[]>([])
+
+  const onPrevButtonClick = () => {
+    if (!emblaApi) return
+    emblaApi.scrollPrev()
   }
 
-  const previousItem = () => {
-    activeItem.value = (activeItem.value - 1 + items.length) % items.length
+  const onNextButtonClick = () => {
+    if (!emblaApi) return
+    emblaApi.scrollNext()
   }
+
+  const onSelect = () => {
+    if (!emblaApi) return
+    selectedIndex.value = emblaApi.selectedScrollSnap()
+  }
+
+  useEffect(() => {
+    if (!emblaApi) return
+
+    scrollSnaps.value = emblaApi.scrollSnapList()
+
+    emblaApi.on('select', onSelect)
+  }, [emblaApi])
 
   return (
-    <div className="w-full p-7 aspect-square">
-      <div className="text-7xl font-abril size-full  border border-secondary rounded-3xl flex items-center justify-center relative">
-        {items[activeItem.value].title}
-        <IconButton
-          class="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2"
-          onClick={previousItem}
-        >
-          <ArrowLeft />
-        </IconButton>
-        <IconButton
-          class="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2"
-          onClick={nextItem}
-        >
-          <ArrowRight />
-        </IconButton>
-        {items[activeItem.value].hasSettingsIcon && (
-          <IconButton class="absolute top-2 right-2" onClick={onClickSettings}>
-            <Settings2 />
-          </IconButton>
-        )}
+    <div className="w-full">
+      <div className="gap-8 overflow-hidden" ref={emblaRef}>
+        <div className="flex -ml-4 touch-pan-y">
+          {slides.map(({ title, hasSettingsIcon }, index) => (
+            <div
+              className="w-9/12 aspect-square shrink-0 justify-center pl-4"
+              key={index}
+            >
+              <div className="text-7xl font-abril size-full border border-secondary rounded-3xl flex items-center justify-center relative">
+                {title}
+                {hasSettingsIcon && (
+                  <IconButton
+                    class="absolute top-2 right-2"
+                    onClick={onClickSettings}
+                  >
+                    <Settings2 />
+                  </IconButton>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
+
+      <IconButton
+        class="absolute top-1/2 left-5 -translate-y-1/2"
+        onClick={onPrevButtonClick}
+      >
+        <ArrowLeft />
+      </IconButton>
+      <IconButton
+        class="absolute top-1/2 right-5 -translate-y-1/2"
+        onClick={onNextButtonClick}
+      >
+        <ArrowRight />
+      </IconButton>
+
       <div className="flex justify-center gap-1 mt-2">
-        {items.map((_, index) => (
+        {scrollSnaps.value.map((_, index) => (
           <div
             key={index}
             className={`size-2 rounded-full ${
-              index === activeItem.value
+              index === selectedIndex.value
                 ? 'bg-muted-foreground'
                 : 'bg-secondary'
             }`}
