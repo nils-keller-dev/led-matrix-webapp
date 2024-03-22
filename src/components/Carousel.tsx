@@ -1,6 +1,5 @@
 import { useSignal } from '@preact/signals'
 import debounceFunction from 'debounce-fn'
-import { EmblaOptionsType } from 'embla-carousel'
 import useEmblaCarousel from 'embla-carousel-react'
 import { ArrowLeft, ArrowRight, Settings2 } from 'lucide-preact'
 import { useEffect } from 'preact/hooks'
@@ -15,18 +14,12 @@ type CarouselItem = {
 
 type CarouselProps = {
   slides: CarouselItem[]
-  options?: EmblaOptionsType
   onClickSettings?: () => void
   onChange?: (index: number) => void
 }
 
-export function Carousel({
-  slides,
-  options,
-  onClickSettings,
-  onChange
-}: CarouselProps) {
-  const [emblaRef, emblaApi] = useEmblaCarousel(options)
+export function Carousel({ slides, onClickSettings, onChange }: CarouselProps) {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true })
 
   const selectedIndex = useSignal(0)
   const scrollSnaps = useSignal<number[]>([])

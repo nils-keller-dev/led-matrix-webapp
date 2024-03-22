@@ -43,7 +43,6 @@ export default function App() {
         <div className="size-full flex items-center">
           <Carousel
             slides={CAROUSEL_ITEMS}
-            options={{ loop: true }}
             onClickSettings={onClickCarouselSettings}
             onChange={onChangeCarouselIndex}
           />
