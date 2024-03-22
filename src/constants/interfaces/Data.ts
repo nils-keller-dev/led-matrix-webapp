@@ -3,4 +3,5 @@ export interface Data {
   mode?: string
   color?: number[]
   textSpeed?: number
+  text?: string
 }

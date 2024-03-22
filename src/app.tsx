@@ -9,6 +9,7 @@ import { Drawer } from './components/Drawer'
 import { InputSpinner } from './components/InputSpinner'
 import { InputWrapper } from './components/InputWrapper'
 import { Slider } from './components/Slider'
+import { TextInput } from './components/TextInput'
 import { CAROUSEL_ITEMS } from './constants/CarouselItems'
 import { Mode } from './constants/enums/Mode'
 import { Data } from './constants/interfaces/Data'
@@ -41,6 +42,10 @@ export default function App() {
 
   const updateTextSpeed = (textSpeed: number) => {
     postJson({ textSpeed })
+  }
+
+  const updateText = (text: string) => {
+    postJson({ text })
   }
 
   useEffect(() => {
@@ -81,7 +86,11 @@ export default function App() {
             isExpanded={isDrawerOpen.value}
             onChangeIsExpanded={onChangeIsDrawerExpanded}
           >
-            <div>
+            <div className="flex flex-col gap-6">
+              <TextInput
+                initialValue={data.value.text!}
+                onChange={updateText}
+              />
               <InputWrapper title="Text speed">
                 <InputSpinner
                   numberSteps={8}
