@@ -3,11 +3,12 @@ import { LoaderCircle, Sun, SunDim } from 'lucide-preact'
 import { useEffect } from 'preact/hooks'
 import { getData } from './api/data.get'
 import { postJson } from './api/json.post'
+import { Carousel } from './components/Carousel'
 import { Drawer } from './components/Drawer'
 import { Slider } from './components/Slider'
-import { carouselItems } from './constants/CarouselItems'
+import { CAROUSEL_ITEMS } from './constants/CarouselItems'
+import { Mode } from './constants/enums/Mode'
 import { Data } from './constants/interfaces/Data'
-import { Carousel } from './components/Carousel'
 
 export default function App() {
   const data = useSignal<Data | null>(null)
@@ -20,6 +21,10 @@ export default function App() {
 
   const onChangeIsDrawerExpanded = (isExpanded: boolean) => {
     isDrawerOpen.value = isExpanded
+  }
+
+  const onChangeCarouselIndex = (index: number) => {
+    postJson({ mode: Mode[CAROUSEL_ITEMS[index].id] })
   }
 
   const updateBrightness = (brightness: number) => {
@@ -37,9 +42,10 @@ export default function App() {
       {data.value ? (
         <div className="size-full flex items-center">
           <Carousel
-            slides={carouselItems}
+            slides={CAROUSEL_ITEMS}
             options={{ loop: true }}
             onClickSettings={onClickCarouselSettings}
+            onChange={onChangeCarouselIndex}
           />
           <Drawer
             header={

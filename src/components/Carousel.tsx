@@ -1,12 +1,15 @@
 import { useSignal } from '@preact/signals'
+import debounceFunction from 'debounce-fn'
 import { EmblaOptionsType } from 'embla-carousel'
 import useEmblaCarousel from 'embla-carousel-react'
 import { ArrowLeft, ArrowRight, Settings2 } from 'lucide-preact'
 import { useEffect } from 'preact/hooks'
+import { Mode } from '../constants/enums/Mode'
 import { IconButton } from './IconButton'
 
 type CarouselItem = {
   title: string
+  id: Mode
   hasSettingsIcon: boolean
 }
 
@@ -14,9 +17,15 @@ type CarouselProps = {
   slides: CarouselItem[]
   options?: EmblaOptionsType
   onClickSettings?: () => void
+  onChange?: (index: number) => void
 }
 
-export function Carousel({ slides, options, onClickSettings }: CarouselProps) {
+export function Carousel({
+  slides,
+  options,
+  onClickSettings,
+  onChange
+}: CarouselProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel(options)
 
   const selectedIndex = useSignal(0)
@@ -32,9 +41,17 @@ export function Carousel({ slides, options, onClickSettings }: CarouselProps) {
     emblaApi.scrollNext()
   }
 
+  const debouncedOnChange = debounceFunction(
+    () => {
+      onChange?.(selectedIndex.value)
+    },
+    { wait: 500 }
+  )
+
   const onSelect = () => {
     if (!emblaApi) return
     selectedIndex.value = emblaApi.selectedScrollSnap()
+    debouncedOnChange()
   }
 
   useEffect(() => {
@@ -49,10 +66,10 @@ export function Carousel({ slides, options, onClickSettings }: CarouselProps) {
     <div className="w-full">
       <div className="gap-8 overflow-hidden" ref={emblaRef}>
         <div className="flex -ml-4 touch-pan-y">
-          {slides.map(({ title, hasSettingsIcon }, index) => (
+          {slides.map(({ id, title, hasSettingsIcon }) => (
             <div
               className="w-9/12 aspect-square shrink-0 justify-center pl-4"
-              key={index}
+              key={id}
             >
               <div className="text-7xl font-abril size-full border border-secondary rounded-3xl flex items-center justify-center relative">
                 {title}

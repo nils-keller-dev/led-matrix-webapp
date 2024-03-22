@@ -1,3 +1,4 @@
 export interface Data {
-  brightness: number
+  brightness?: number
+  mode?: string
 }
