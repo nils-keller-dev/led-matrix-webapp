@@ -6,6 +6,8 @@ import { postJson } from './api/json.post'
 import { Carousel } from './components/Carousel'
 import { ColorInput } from './components/ColorInput'
 import { Drawer } from './components/Drawer'
+import { InputSpinner } from './components/InputSpinner'
+import { InputWrapper } from './components/InputWrapper'
 import { Slider } from './components/Slider'
 import { CAROUSEL_ITEMS } from './constants/CarouselItems'
 import { Mode } from './constants/enums/Mode'
@@ -35,6 +37,10 @@ export default function App() {
 
   const updateColor = (color: string) => {
     postJson({ color: hexToRgb(color) })
+  }
+
+  const updateTextSpeed = (textSpeed: number) => {
+    postJson({ textSpeed })
   }
 
   useEffect(() => {
@@ -75,8 +81,17 @@ export default function App() {
             isExpanded={isDrawerOpen.value}
             onChangeIsExpanded={onChangeIsDrawerExpanded}
           >
-            <div className="h-[200px] flex items-end justify-center text-muted-foreground">
-              Hier könnte Ihre Werbung stehen
+            <div>
+              <InputWrapper title="Text speed">
+                <InputSpinner
+                  numberSteps={8}
+                  initialValue={data.value.textSpeed!}
+                  onChange={updateTextSpeed}
+                />
+              </InputWrapper>
+              <div className="h-[200px] flex items-end justify-center text-muted-foreground">
+                Hier könnte Ihre Werbung stehen
+              </div>
             </div>
           </Drawer>
         </div>
