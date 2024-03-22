@@ -9,7 +9,7 @@ export function TextInput({ initialValue, onChange }: TextInputProps) {
   const value = useSignal(initialValue)
 
   const handleChange = (event: Event) => {
-    const target = event.target as HTMLTextAreaElement
+    const target = event.target as HTMLInputElement
     value.value = target.value
     onChange(value.value)
   }
@@ -24,7 +24,7 @@ export function TextInput({ initialValue, onChange }: TextInputProps) {
 
   return (
     <input
-      className="bg-background text-primary size-full border border-secondary rounded-md p-4  focus:outline-none resize-none"
+      className="bg-background text-primary size-full border border-secondary rounded-md p-4 focus:outline-none resize-none"
       value={value}
       onBlur={handleChange}
       onKeyDown={onKeyDown}
