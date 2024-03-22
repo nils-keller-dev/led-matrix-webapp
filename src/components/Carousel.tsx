@@ -14,11 +14,17 @@ type CarouselItem = {
 
 type CarouselProps = {
   slides: CarouselItem[]
+  initialValue?: number
   onClickSettings?: () => void
   onChange?: (index: number) => void
 }
 
-export function Carousel({ slides, onClickSettings, onChange }: CarouselProps) {
+export function Carousel({
+  slides,
+  initialValue = 0,
+  onClickSettings,
+  onChange
+}: CarouselProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true })
 
   const selectedIndex = useSignal(0)
@@ -51,6 +57,8 @@ export function Carousel({ slides, onClickSettings, onChange }: CarouselProps) {
     if (!emblaApi) return
 
     scrollSnaps.value = emblaApi.scrollSnapList()
+
+    emblaApi.scrollTo(initialValue)
 
     emblaApi.on('select', onSelect)
   }, [emblaApi])

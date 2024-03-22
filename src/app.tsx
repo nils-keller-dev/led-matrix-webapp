@@ -43,6 +43,7 @@ export default function App() {
         <div className="size-full flex items-center">
           <Carousel
             slides={CAROUSEL_ITEMS}
+            initialValue={Mode[data.value?.mode as keyof typeof Mode]}
             onClickSettings={onClickCarouselSettings}
             onChange={onChangeCarouselIndex}
           />
