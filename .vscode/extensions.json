@@ -3,7 +3,6 @@
     "bradlc.vscode-tailwindcss",
     "seatonjiang.gitmoji-vscode",
     "dbaeumer.vscode-eslint",
-    "rvest.vs-code-prettier-eslint",
     "esbenp.prettier-vscode"
   ]
 }
