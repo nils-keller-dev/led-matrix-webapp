@@ -1,7 +1,7 @@
 import { useSignal } from '@preact/signals'
 import { useRef } from 'preact/hooks'
 
-interface SliderProps {
+type SliderProps = {
   min: number
   max: number
   initialValue?: number
