@@ -9,6 +9,7 @@ import { Drawer } from './components/Drawer'
 import { InputSpinner } from './components/InputSpinner'
 import { InputWrapper } from './components/InputWrapper'
 import { Slider } from './components/Slider'
+import { Switch } from './components/Switch'
 import { TextInput } from './components/TextInput'
 import { CAROUSEL_ITEMS } from './constants/CarouselItems'
 import { Mode } from './constants/enums/Mode'
@@ -46,6 +47,10 @@ export default function App() {
 
   const updateText = (text: string) => {
     postJson({ text })
+  }
+
+  const updateTextVertical = (vertical: boolean) => {
+    postJson({ vertical })
   }
 
   useEffect(() => {
@@ -91,6 +96,12 @@ export default function App() {
                 initialValue={data.value.text!}
                 onChange={updateText}
               />
+              <InputWrapper title="Vertical text">
+                <Switch
+                  initialValue={data.value.vertical!}
+                  onChange={updateTextVertical}
+                />
+              </InputWrapper>
               <InputWrapper title="Text speed">
                 <InputSpinner
                   numberSteps={8}

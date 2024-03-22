@@ -4,4 +4,5 @@ export interface Data {
   color?: number[]
   textSpeed?: number
   text?: string
+  vertical?: boolean
 }
