@@ -109,9 +109,6 @@ export default function App() {
                   onChange={updateTextSpeed}
                 />
               </InputWrapper>
-              <div className="h-[200px] flex items-end justify-center text-muted-foreground">
-                Hier könnte Ihre Werbung stehen
-              </div>
             </div>
           </Drawer>
         </div>
