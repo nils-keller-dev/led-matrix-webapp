@@ -24,7 +24,7 @@ export function ColorInput({ initialValue, onChange }: ColorInputProps) {
   }, [])
 
   return (
-    <div className="w-full h-10 rounded-md border border-secondary bg-background flex items-center relative">
+    <div className="w-full py-2 rounded-md border border-secondary bg-background flex items-center relative">
       <label htmlFor="picker" className="size-full absolute" />
       <div
         className="size-5 rounded-md border border-secondary ml-4"
