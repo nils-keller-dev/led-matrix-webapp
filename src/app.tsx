@@ -28,7 +28,10 @@ export default function App() {
     isDrawerOpen.value = isExpanded
   }
 
-  const onChangeCarouselIndex = (index: number) => {
+  const onChangeCarouselIndex = (index: number, initial?: boolean) => {
+    currentCarouselIndex.value = index
+
+    if (initial) return
     postJson({ mode: Mode[CAROUSEL_ITEMS[index].id] })
   }
 
