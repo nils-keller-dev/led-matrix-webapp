@@ -2,10 +2,15 @@ import { useSignal } from '@preact/signals'
 
 type SwitchProps = {
   initialValue: boolean
+  id?: string
   onChange: (value: boolean) => void
 }
 
-export function Switch({ initialValue, onChange }: SwitchProps) {
+export function Switch({
+  initialValue,
+  id = 'checkbox',
+  onChange
+}: SwitchProps) {
   const value = useSignal(initialValue)
 
   const handleChange = (event: Event) => {
@@ -16,7 +21,7 @@ export function Switch({ initialValue, onChange }: SwitchProps) {
 
   return (
     <div>
-      <label htmlFor="checkbox">
+      <label htmlFor={id}>
         <div
           className={`w-11 h-6 rounded-full p-0.5 transition-colors ${
             value.value ? 'bg-primary' : 'bg-secondary'
@@ -30,7 +35,7 @@ export function Switch({ initialValue, onChange }: SwitchProps) {
         </div>
       </label>
       <input
-        id="checkbox"
+        id={id}
         className="hidden"
         onChange={handleChange}
         placeholder="Text"

@@ -96,9 +96,10 @@ export default function App() {
                 initialValue={data.value.text!}
                 onChange={updateText}
               />
-              <InputWrapper title="Vertical text">
+              <InputWrapper title="Vertical text" htmlFor="vertical-switch">
                 <Switch
                   initialValue={data.value.vertical!}
+                  id="vertical-switch"
                   onChange={updateTextVertical}
                 />
               </InputWrapper>
