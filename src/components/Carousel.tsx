@@ -65,7 +65,7 @@ export function Carousel({
   }, [emblaApi])
 
   return (
-    <div className="w-full">
+    <div className="w-full relative">
       <div className="gap-8 overflow-hidden" ref={emblaRef}>
         <div className="flex -ml-4 touch-pan-y">
           {slides.map(({ id, title, hasSettingsIcon }) => (
@@ -88,6 +88,9 @@ export function Carousel({
           ))}
         </div>
       </div>
+
+      <div className="absolute top-0 left-0 h-full w-[12.5%] bg-gradient-to-r from-background via-50% via-background/75 to-transparent" />
+      <div className="absolute top-0 right-0 h-full w-[12.5%] bg-gradient-to-l from-background via-50% via-background/75 to-transparent" />
 
       <IconButton
         class="absolute top-1/2 left-5 -translate-y-1/2"
