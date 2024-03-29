@@ -134,7 +134,8 @@ export function Drawer({
     removeEventListener('touchend', stopDrag)
   }
 
-  const collapse = () => {
+  const collapse = (e?: Event) => {
+    e?.preventDefault()
     updateStyles(collapsedHeight.value)
     onChangeIsExpanded(false)
     localIsExpanded.value = false
