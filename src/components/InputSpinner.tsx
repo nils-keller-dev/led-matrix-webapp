@@ -20,16 +20,17 @@ export function InputSpinner({
   const increase = () => {
     if (selectedIndex.value < numberSteps - 1) {
       selectedIndex.value++
+      debouncedOnChange()
     }
   }
 
   const decrease = () => {
     if (selectedIndex.value > 0) {
       selectedIndex.value--
+      debouncedOnChange()
     }
   }
 
-  // TODO: currently fires once on load
   const debouncedOnChange = useCallback(
     debounceFunction(
       () => {
@@ -39,10 +40,6 @@ export function InputSpinner({
     ),
     []
   )
-
-  useEffect(() => {
-    debouncedOnChange()
-  }, [selectedIndex.value])
 
   return (
     <div className="flex gap-2">
