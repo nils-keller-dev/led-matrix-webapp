@@ -29,6 +29,7 @@ export function InputSpinner({
     }
   }
 
+  // TODO: currently fires once on load
   const debouncedOnChange = useCallback(
     debounceFunction(
       () => {
