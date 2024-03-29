@@ -1,7 +1,7 @@
 import { useSignal } from '@preact/signals'
 import debounceFunction from 'debounce-fn'
 import { Minus, Plus } from 'lucide-preact'
-import { useEffect } from 'preact/hooks'
+import { useCallback, useEffect } from 'preact/hooks'
 import { IconButton } from './IconButton'
 
 type InputSpinnerProps = {
@@ -29,10 +29,14 @@ export function InputSpinner({
     }
   }
 
-  // TODO: fix this debounce
-  const debouncedOnChange = debounceFunction(
-    () => onChange?.(selectedIndex.value),
-    { wait: 500 }
+  const debouncedOnChange = useCallback(
+    debounceFunction(
+      () => {
+        onChange?.(selectedIndex.value)
+      },
+      { wait: 500 }
+    ),
+    []
   )
 
   useEffect(() => {

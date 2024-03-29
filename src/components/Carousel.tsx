@@ -2,7 +2,7 @@ import { useSignal } from '@preact/signals'
 import debounceFunction from 'debounce-fn'
 import useEmblaCarousel from 'embla-carousel-react'
 import { ArrowLeft, ArrowRight, Settings2 } from 'lucide-preact'
-import { useEffect } from 'preact/hooks'
+import { useCallback, useEffect } from 'preact/hooks'
 import { Mode } from '../constants/enums/Mode'
 import { IconButton } from './IconButton'
 
@@ -40,11 +40,14 @@ export function Carousel({
     emblaApi.scrollNext()
   }
 
-  const debouncedOnChange = debounceFunction(
-    () => {
-      onChange?.(selectedIndex.value)
-    },
-    { wait: 500 }
+  const debouncedOnChange = useCallback(
+    debounceFunction(
+      () => {
+        onChange?.(selectedIndex.value)
+      },
+      { wait: 500 }
+    ),
+    []
   )
 
   const onSelect = () => {
