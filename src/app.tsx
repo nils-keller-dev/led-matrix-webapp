@@ -6,11 +6,8 @@ import { postJson } from './api/json.post'
 import { Carousel } from './components/Carousel'
 import { ColorInput } from './components/ColorInput'
 import { Drawer } from './components/Drawer'
-import { InputSpinner } from './components/InputSpinner'
-import { InputWrapper } from './components/InputWrapper'
+import { Text } from './components/settingGroup/Text'
 import { Slider } from './components/Slider'
-import { Switch } from './components/Switch'
-import { TextInput } from './components/TextInput'
 import { CAROUSEL_ITEMS } from './constants/CarouselItems'
 import { Mode } from './constants/enums/Mode'
 import { Data } from './constants/interfaces/Data'
@@ -39,18 +36,6 @@ export default function App() {
 
   const updateColor = (color: string) => {
     postJson({ color: hexToRgb(color) })
-  }
-
-  const updateTextSpeed = (textSpeed: number) => {
-    postJson({ textSpeed })
-  }
-
-  const updateText = (text: string) => {
-    postJson({ text })
-  }
-
-  const updateTextVertical = (vertical: boolean) => {
-    postJson({ vertical })
   }
 
   useEffect(() => {
@@ -91,7 +76,7 @@ export default function App() {
             isExpanded={isDrawerOpen.value}
             onChangeIsExpanded={onChangeIsDrawerExpanded}
           >
-            <div className="flex flex-col gap-6">
+            {/* <div className="flex flex-col gap-6">
               <TextInput
                 initialValue={data.value.text!}
                 onChange={updateText}
@@ -110,7 +95,12 @@ export default function App() {
                   onChange={updateTextSpeed}
                 />
               </InputWrapper>
-            </div>
+            </div> */}
+            <Text
+              text={data.value.text!}
+              vertical={data.value.vertical!}
+              textSpeed={data.value.textSpeed!}
+            />
           </Drawer>
         </div>
       ) : (
