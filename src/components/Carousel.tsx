@@ -16,7 +16,7 @@ type CarouselProps = {
   slides: CarouselItem[]
   initialValue?: number
   onClickSettings?: () => void
-  onChange?: (index: number) => void
+  onChange?: (index: number, initial?: boolean) => void
 }
 
 export function Carousel({
@@ -63,6 +63,7 @@ export function Carousel({
 
     emblaApi.scrollTo(initialValue, true)
     selectedIndex.value = emblaApi.selectedScrollSnap()
+    onChange?.(selectedIndex.value, true)
 
     emblaApi.on('select', onSelect)
   }, [emblaApi])

@@ -6,6 +6,7 @@ import { postJson } from './api/json.post'
 import { Carousel } from './components/Carousel'
 import { ColorInput } from './components/ColorInput'
 import { Drawer } from './components/Drawer'
+import { Image } from './components/settingGroup/Image'
 import { Text } from './components/settingGroup/Text'
 import { Slider } from './components/Slider'
 import { CAROUSEL_ITEMS } from './constants/CarouselItems'
@@ -15,6 +16,7 @@ import { hexToRgb, rgbToHex } from './utils/ColorConversion'
 
 export default function App() {
   const data = useSignal<Data | null>(null)
+  const currentCarouselIndex = useSignal(-1)
 
   const isDrawerOpen = useSignal(false)
 
@@ -54,54 +56,46 @@ export default function App() {
             onClickSettings={onClickCarouselSettings}
             onChange={onChangeCarouselIndex}
           />
-          <Drawer
-            header={
-              <div className="flex flex-col gap-5">
-                <div className="flex gap-3 flex-row">
-                  <SunDim class="text-muted-foreground shrink-0" />
-                  <Slider
-                    min={0}
-                    max={100}
-                    initialValue={data.value?.brightness}
-                    onChange={updateBrightness}
+          {currentCarouselIndex.value >= 0 && (
+            <Drawer
+              header={
+                <div className="flex flex-col gap-5">
+                  <div className="flex gap-3 flex-row">
+                    <SunDim class="text-muted-foreground shrink-0" />
+                    <Slider
+                      min={0}
+                      max={100}
+                      initialValue={data.value?.brightness}
+                      onChange={updateBrightness}
+                    />
+                    <Sun class="text-muted-foreground shrink-0" />
+                  </div>
+                  <ColorInput
+                    initialValue={rgbToHex(data.value.color!)}
+                    onChange={updateColor}
                   />
-                  <Sun class="text-muted-foreground shrink-0" />
                 </div>
-                <ColorInput
-                  initialValue={rgbToHex(data.value.color!)}
-                  onChange={updateColor}
-                />
-              </div>
-            }
-            isExpanded={isDrawerOpen.value}
-            onChangeIsExpanded={onChangeIsDrawerExpanded}
-          >
-            {/* <div className="flex flex-col gap-6">
-              <TextInput
-                initialValue={data.value.text!}
-                onChange={updateText}
-              />
-              <InputWrapper title="Vertical text" htmlFor="vertical-switch">
-                <Switch
-                  initialValue={data.value.vertical!}
-                  id="vertical-switch"
-                  onChange={updateTextVertical}
-                />
-              </InputWrapper>
-              <InputWrapper title="Text speed">
-                <InputSpinner
-                  numberSteps={8}
-                  initialValue={data.value.textSpeed!}
-                  onChange={updateTextSpeed}
-                />
-              </InputWrapper>
-            </div> */}
-            <Text
-              text={data.value.text!}
-              vertical={data.value.vertical!}
-              textSpeed={data.value.textSpeed!}
-            />
-          </Drawer>
+              }
+              isExpanded={isDrawerOpen.value}
+              onChangeIsExpanded={onChangeIsDrawerExpanded}
+              childrenId={currentCarouselIndex.value}
+            >
+              {CAROUSEL_ITEMS[currentCarouselIndex.value].hasSettingsIcon && (
+                <>
+                  {currentCarouselIndex.value === 2 && (
+                    <Image image={data.value.image!} />
+                  )}
+                  {currentCarouselIndex.value === 3 && (
+                    <Text
+                      text={data.value.text!}
+                      vertical={data.value.vertical!}
+                      textSpeed={data.value.textSpeed!}
+                    />
+                  )}
+                </>
+              )}
+            </Drawer>
+          )}
         </div>
       ) : (
         <div className="flex items-center justify-center size-full">
