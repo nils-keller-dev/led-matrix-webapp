@@ -128,7 +128,8 @@ export function Drawer({
     removeEventListener('touchend', stopDrag)
   }
 
-  const collapse = () => {
+  const collapse = (e?: Event) => {
+    e?.preventDefault()
     updateStyles(collapsedHeight.value)
     onChangeIsExpanded(false)
   }
@@ -146,23 +147,23 @@ export function Drawer({
     <div className="size-full absolute pointer-events-none">
       {currentHeight.value > collapsedHeight.value && (
         <div
-          onClick={collapse}
+          onTouchEnd={collapse}
           className="size-full backdrop-blur-[--drawer-backdrop-blur] backdrop-brightness-[--drawer-backdrop-brightness] pointer-events-auto"
         />
       )}
       <div
         ref={drawerRef}
-        onMouseDown={startDrag}
         onTouchStart={startDrag}
-        className="pb-[30px] w-full px-7 pt-4 rounded-t-xl border border-secondary border-b-0 fixed top-full bg-background -translate-y-[--drawer-visible-height] transition-transform pointer-events-auto"
+        className="pb-[30px] w-full rounded-t-xl border border-secondary border-b-0 fixed top-full bg-background -translate-y-[--drawer-visible-height] transition-transform pointer-events-auto"
       >
-        <div
-          className="bg-secondary w-24 h-2 rounded-full mx-auto mb-7"
-          onClick={toggle}
-        />
-        <div className="mb-7">{header}</div>
-        <div className="mb-7">
-          {hasCalculatedHeaderHeight.value && children}
+        <div className="pt-4 mb-7" onClick={toggle}>
+          <div className="bg-secondary w-24 h-2 rounded-full mx-auto" />
+        </div>
+        <div className="px-7">
+          <div className="mb-7">{header}</div>
+          <div className="mb-7">
+            {hasCalculatedHeaderHeight.value && children}
+          </div>
         </div>
       </div>
     </div>
