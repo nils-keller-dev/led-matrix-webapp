@@ -24,10 +24,10 @@ export function ColorInput({ initialValue, onChange }: ColorInputProps) {
   }, [])
 
   return (
-    <div className="w-full py-2 rounded-md border border-secondary bg-background flex items-center relative">
+    <div className="w-full py-3 rounded-md border border-secondary bg-background flex items-center relative">
       <label htmlFor="picker" className="size-full absolute" />
       <div
-        className="size-5 rounded-md border border-secondary ml-4"
+        className="size-6 rounded-md border border-secondary ml-4"
         style={{ backgroundColor: currentColor.value }}
       />
       <input
@@ -35,7 +35,7 @@ export function ColorInput({ initialValue, onChange }: ColorInputProps) {
         ref={colorInput}
         type="color"
         value={currentColor.value}
-        className="opacity-0 w-0"
+        className="opacity-0 size-0"
       />
       <span className="ml-3 uppercase text-primary">{currentColor.value}</span>
     </div>

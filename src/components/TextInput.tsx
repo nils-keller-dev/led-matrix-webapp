@@ -24,7 +24,7 @@ export function TextInput({ initialValue, onChange }: TextInputProps) {
 
   return (
     <input
-      className="bg-background text-primary size-full border border-secondary rounded-md p-4 focus:outline-none resize-none"
+      className="bg-background text-primary w-full border border-secondary rounded-md focus:outline-none resize-none leading-6 py-3 px-4"
       value={value}
       onBlur={handleChange}
       onKeyDown={onKeyDown}
