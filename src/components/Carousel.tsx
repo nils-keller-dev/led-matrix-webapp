@@ -58,7 +58,7 @@ export function Carousel({
 
     scrollSnaps.value = emblaApi.scrollSnapList()
 
-    emblaApi.scrollTo(initialValue)
+    emblaApi.scrollTo(initialValue, true)
     selectedIndex.value = emblaApi.selectedScrollSnap()
 
     emblaApi.on('select', onSelect)
