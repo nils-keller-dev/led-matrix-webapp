@@ -4,7 +4,7 @@ export const CAROUSEL_ITEMS = [
   {
     id: Mode.CLOCK,
     title: 'Clock',
-    hasSettingsIcon: true
+    hasSettingsIcon: false
   },
   {
     id: Mode.MUSIC,

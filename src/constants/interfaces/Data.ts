@@ -5,4 +5,5 @@ export interface Data {
   textSpeed?: number
   text?: string
   vertical?: boolean
+  image?: string
 }
