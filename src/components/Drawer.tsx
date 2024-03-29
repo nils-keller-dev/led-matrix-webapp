@@ -3,13 +3,15 @@ import { JSX } from 'preact'
 import { useEffect, useRef } from 'preact/hooks'
 
 type DrawerProps = {
-  children: JSX.Element
+  children: JSX.Element | false
   header: JSX.Element
   isExpanded: boolean
+  childrenId: number
   onChangeIsExpanded: (isExpanded: boolean) => void
 }
 
 const PADDING_BOTTOM = 30
+const HEIGHT_PULLER = 52
 const BACKDROP_BLUR = 3
 const BACKDROP_BRIGHTNESS = 0.5
 
@@ -25,38 +27,40 @@ export function Drawer({
   children,
   header,
   isExpanded,
+  childrenId,
   onChangeIsExpanded
 }: DrawerProps) {
   const drawerRef = useRef<HTMLDivElement>(null)
-  const hasCalculatedHeaderHeight = useSignal(false)
+  const headerRef = useRef<HTMLDivElement>(null)
+  const childrenRef = useRef<HTMLDivElement>(null)
 
   const expandedHeight = useSignal(0)
   const collapsedHeight = useSignal(0)
   const currentHeight = useSignal(0)
   const collapsedExpandedDelta = useSignal(0)
 
+  const localIsExpanded = useSignal(isExpanded)
+
   const previousDragY = useSignal(0)
 
   useEffect(() => {
+    if (isExpanded === localIsExpanded.value) return
     isExpanded ? expand() : collapse()
   }, [isExpanded])
 
   useEffect(() => {
-    if (!drawerRef.current) return
+    if (!headerRef.current || !childrenRef.current) return
 
-    const height = drawerRef.current.clientHeight - PADDING_BOTTOM
+    const headerHeight = headerRef.current.clientHeight + HEIGHT_PULLER
+    const childrenHeight =
+      childrenRef.current.clientHeight + (children ? PADDING_BOTTOM : 0)
 
-    if (!hasCalculatedHeaderHeight.value) {
-      collapsedHeight.value = height
-      hasCalculatedHeaderHeight.value = true
-    } else {
-      expandedHeight.value = height
-      collapsedExpandedDelta.value =
-        expandedHeight.value - collapsedHeight.value
+    collapsedHeight.value = headerHeight
+    expandedHeight.value = childrenHeight + headerHeight
+    collapsedExpandedDelta.value = expandedHeight.value - collapsedHeight.value
 
-      updateStyles(collapsedHeight.value)
-    }
-  }, [hasCalculatedHeaderHeight.value]) // run again to calculate expandedHeight
+    updateStyles(collapsedHeight.value)
+  }, [childrenId])
 
   const updateStyles = (height: number) => {
     document.body.style.setProperty('--drawer-visible-height', `${height}px`)
@@ -120,7 +124,9 @@ export function Drawer({
       currentHeight.value - collapsedHeight.value
     )
 
-    distanceToExpanded < distanceToCollapsed ? expand() : collapse()
+    if (distanceToExpanded && distanceToCollapsed) {
+      distanceToExpanded < distanceToCollapsed ? expand() : collapse()
+    }
 
     removeEventListener('mousemove', handleDrag)
     removeEventListener('touchmove', handleDrag)
@@ -128,15 +134,16 @@ export function Drawer({
     removeEventListener('touchend', stopDrag)
   }
 
-  const collapse = (e?: Event) => {
-    e?.preventDefault()
+  const collapse = () => {
     updateStyles(collapsedHeight.value)
     onChangeIsExpanded(false)
+    localIsExpanded.value = false
   }
 
   const expand = () => {
     updateStyles(expandedHeight.value)
     onChangeIsExpanded(true)
+    localIsExpanded.value = true
   }
 
   const toggle = () => {
@@ -154,16 +161,16 @@ export function Drawer({
       <div
         ref={drawerRef}
         onTouchStart={startDrag}
-        className="pb-[30px] w-full rounded-t-xl border border-secondary border-b-0 fixed top-full bg-background -translate-y-[--drawer-visible-height] transition-transform pointer-events-auto"
+        className="pb-[60px] w-full rounded-t-xl border border-secondary border-b-0 fixed top-full bg-background -translate-y-[--drawer-visible-height] transition-transform pointer-events-auto"
       >
         <div className="pt-4 mb-7" onClick={toggle}>
           <div className="bg-secondary w-24 h-2 rounded-full mx-auto" />
         </div>
         <div className="px-7">
-          <div className="mb-7">{header}</div>
-          <div className="mb-7">
-            {hasCalculatedHeaderHeight.value && children}
+          <div className="pb-7" ref={headerRef}>
+            {header}
           </div>
+          <div ref={childrenRef}>{children}</div>
         </div>
       </div>
     </div>
