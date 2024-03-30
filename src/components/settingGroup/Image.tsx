@@ -48,6 +48,7 @@ export function Image({ image, images }: ImageSettingsProps) {
       return
     }
 
+    // TODO scale down image
     postImage(file)
 
     imageList.value = [...imageList.value, file.name]

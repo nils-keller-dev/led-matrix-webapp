@@ -4,6 +4,7 @@ import { SunMoon } from 'lucide-preact'
 export function Header() {
   const theme = useSignal(0)
 
+  // TODO fix color and images when inverted (or remove themes entirely)
   const toggleTheme = () => {
     theme.value = theme.value === 0 ? 1 : 0
   }
