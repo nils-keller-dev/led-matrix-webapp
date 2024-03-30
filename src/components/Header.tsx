@@ -10,7 +10,9 @@ export function Header() {
 
   return (
     <header className="border-b border-b-secondary flex items-center justify-between px-4">
-      <span className="text-secondary">v1.0.0</span>
+      <a href="/data" className="text-secondary">
+        v1.0.0
+      </a>
       <img src="/logo.svg" alt="logo" className="size-14" />
       <div className="relative">
         <div
