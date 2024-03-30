@@ -152,7 +152,7 @@ export function Drawer({
   }
 
   return (
-    <div className="size-full absolute pointer-events-none">
+    <div className="h-screen w-screen top-0 absolute pointer-events-none">
       {currentHeight.value > collapsedHeight.value && (
         <div
           onTouchEnd={collapse}
