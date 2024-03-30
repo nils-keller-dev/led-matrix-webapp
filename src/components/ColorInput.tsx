@@ -10,6 +10,7 @@ export function ColorInput({ initialValue, onChange }: ColorInputProps) {
   const colorInput = useRef<HTMLInputElement>(null)
 
   const currentColor = useSignal(initialValue)
+  const colorName = useSignal('')
 
   const onColorChange = () => {
     const color = colorInput.current?.value ?? ''
@@ -22,6 +23,14 @@ export function ColorInput({ initialValue, onChange }: ColorInputProps) {
   useEffect(() => {
     colorInput.current?.addEventListener('change', onColorChange)
   }, [])
+
+  useEffect(() => {
+    fetch(
+      `https://www.thecolorapi.com/id?hex=${currentColor.value.replace('#', '')}`
+    )
+      .then((response) => response.json())
+      .then((data) => (colorName.value = data.name.value))
+  }, [currentColor.value])
 
   return (
     <div className="w-full py-3 rounded-md border border-secondary bg-background flex items-center relative">
@@ -37,7 +46,7 @@ export function ColorInput({ initialValue, onChange }: ColorInputProps) {
         value={currentColor.value}
         className="opacity-0 size-0"
       />
-      <span className="ml-3 uppercase text-primary">{currentColor.value}</span>
+      <span className="ml-3 text-primary">{colorName.value}</span>
     </div>
   )
 }
