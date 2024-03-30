@@ -1,7 +1,7 @@
 import { useSignal } from '@preact/signals'
 import debounceFunction from 'debounce-fn'
 import { Minus, Plus } from 'lucide-preact'
-import { useCallback, useEffect } from 'preact/hooks'
+import { useCallback } from 'preact/hooks'
 import { IconButton } from './IconButton'
 
 type InputSpinnerProps = {
