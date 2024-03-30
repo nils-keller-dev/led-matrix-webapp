@@ -61,7 +61,7 @@ export default function App() {
       {data.value && images.value ? (
         <div className="size-full">
           <Header />
-          <div className="size-full pt-[175px]">
+          <div className="flex size-full items-end pb-72">
             <Carousel
               slides={CAROUSEL_ITEMS}
               initialValue={Mode[data.value.mode as keyof typeof Mode]}
