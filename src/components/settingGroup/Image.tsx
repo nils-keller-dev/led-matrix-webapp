@@ -1,18 +1,39 @@
+import { useSignal } from '@preact/signals'
 import { postJson } from '../../api/json.post'
-import { TextInput } from '../TextInput'
 
 type ImageSettingsProps = {
   image: string
+  images: string[]
 }
 
-export function Image(initialValues: ImageSettingsProps) {
+export function Image({ image, images }: ImageSettingsProps) {
+  const currentImage = useSignal(image)
+
   const updateImage = (image: string) => {
     postJson({ image })
+    currentImage.value = image
+  }
+
+  const startDrag = (e: MouseEvent | TouchEvent) => {
+    e.stopPropagation()
   }
 
   return (
-    <div className="flex flex-col gap-6">
-      <TextInput initialValue={initialValues.image} onChange={updateImage} />
+    <div
+      className="h-[50vh] overflow-y-scroll"
+      onMouseDown={startDrag}
+      onTouchStart={startDrag}
+    >
+      <div className="grid grid-cols-3 gap-3">
+        {images.map((imageName, index) => (
+          <img
+            src={`image/${imageName}`}
+            key={index}
+            className={`size-full object-contain rounded-xl ${imageName === currentImage.value ? 'border-2 border-primary' : 'border border-secondary'}`}
+            onClick={() => updateImage(imageName)}
+          />
+        ))}
+      </div>
     </div>
   )
 }

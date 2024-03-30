@@ -2,6 +2,7 @@ import { useSignal } from '@preact/signals'
 import { LoaderCircle, Sun, SunDim } from 'lucide-preact'
 import { useEffect } from 'preact/hooks'
 import { getData } from './api/data.get'
+import { getImages } from './api/images.get'
 import { postJson } from './api/json.post'
 import { Carousel } from './components/Carousel'
 import { ColorInput } from './components/ColorInput'
@@ -17,6 +18,7 @@ import { hexToRgb, rgbToHex } from './utils/ColorConversion'
 
 export default function App() {
   const data = useSignal<Data | null>(null)
+  const images = useSignal<string[] | null>(null)
   const currentCarouselIndex = useSignal(-1)
 
   const isDrawerOpen = useSignal(false)
@@ -48,11 +50,15 @@ export default function App() {
     getData().then((newData) => {
       data.value = newData
     })
+
+    getImages().then((newImages) => {
+      images.value = newImages
+    })
   }, [])
 
   return (
     <div className="bg-background text-primary size-full">
-      {data.value ? (
+      {data.value && images.value ? (
         <div className="size-full">
           <Header />
           <div className="size-full pt-[175px]">
@@ -89,7 +95,7 @@ export default function App() {
                 {CAROUSEL_ITEMS[currentCarouselIndex.value].hasSettingsIcon && (
                   <>
                     {currentCarouselIndex.value === 2 && (
-                      <Image image={data.value.image!} />
+                      <Image image={data.value.image!} images={images.value} />
                     )}
                     {currentCarouselIndex.value === 3 && (
                       <Text
