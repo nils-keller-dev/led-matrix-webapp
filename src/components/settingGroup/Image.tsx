@@ -73,6 +73,7 @@ export function Image({ image, images }: ImageSettingsProps) {
           <label htmlFor="file" className="size-full absolute" />
           <input
             type="file"
+            accept=".jpg, .jpeg, .png, .gif"
             id="file"
             className="opacity-0 size-0"
             onInput={uploadFile}
