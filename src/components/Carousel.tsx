@@ -70,11 +70,11 @@ export function Carousel({
 
   return (
     <div className="w-full relative">
-      <div className="gap-8 overflow-hidden" ref={emblaRef}>
+      <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex -ml-4 touch-pan-y">
           {slides.map(({ id, title, hasSettingsIcon }) => (
             <div
-              className="w-9/12 aspect-square shrink-0 justify-center pl-4"
+              className="w-9/12 aspect-square shrink-0 justify-center pl-4 box-content"
               key={id}
             >
               <div className="text-7xl font-abril size-full border border-secondary rounded-3xl flex items-center justify-center relative">
@@ -93,8 +93,8 @@ export function Carousel({
         </div>
       </div>
 
-      <div className="absolute top-0 left-0 h-full w-[12.5%] bg-gradient-to-r from-background via-50% via-background/75 to-transparent" />
-      <div className="absolute top-0 right-0 h-full w-[12.5%] bg-gradient-to-l from-background via-50% via-background/75 to-transparent" />
+      <div className="absolute top-0 left-0 h-full w-1/12 bg-gradient-to-r from-background via-50% via-background/65 to-transparent" />
+      <div className="absolute top-0 right-0 h-full w-1/12 bg-gradient-to-l from-background via-50% via-background/65 to-transparent" />
 
       <IconButton
         class="absolute top-1/2 left-5 -translate-y-1/2"
