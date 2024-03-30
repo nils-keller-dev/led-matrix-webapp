@@ -14,7 +14,7 @@ export function Header() {
       <img src="/logo.svg" alt="logo" className="size-14" />
       <div className="relative">
         <div
-          className="absolute top-1/2 left-1/2 transition-all ease-in -translate-x-1/2 -translate-y-1/2 rounded-full backdrop-invert z-40 size-0 pointer-events-none"
+          className="absolute top-1/2 left-1/2 transition-all ease-in -translate-x-1/2 -translate-y-1/2 rounded-full backdrop-invert z-40 h-1 w-0 pointer-events-none"
           style={theme.value ? { width: '212vh', height: '212vh' } : undefined}
         />
         <SunMoon onClick={toggleTheme} className="z-50" />
