@@ -1,7 +1,7 @@
 import { useSignal } from '@preact/signals'
 import debounceFunction from 'debounce-fn'
 import useEmblaCarousel from 'embla-carousel-react'
-import { ArrowLeft, ArrowRight, Settings2 } from 'lucide-preact'
+import { ArrowLeft, ArrowRight } from 'lucide-preact'
 import { useCallback, useEffect } from 'preact/hooks'
 import { Mode } from '../constants/enums/Mode'
 import { IconButton } from './IconButton'
@@ -9,7 +9,7 @@ import { IconButton } from './IconButton'
 type CarouselItem = {
   title: string
   id: Mode
-  hasSettingsIcon: boolean
+  hasConfiguration: boolean
 }
 
 type CarouselProps = {
@@ -72,21 +72,20 @@ export function Carousel({
     <div className="w-full relative">
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex -ml-4 touch-pan-y">
-          {slides.map(({ id, title, hasSettingsIcon }) => (
+          {slides.map(({ id, title, hasConfiguration }) => (
             <div
               className="w-9/12 aspect-square shrink-0 justify-center pl-4 box-content"
               key={id}
             >
-              <div className="text-7xl font-abril size-full border border-secondary rounded-3xl flex items-center justify-center relative">
-                {title}
-                {hasSettingsIcon && (
-                  <IconButton
-                    aria-label="settings"
-                    class="absolute top-2 right-2"
+              <div className="size-full border border-secondary rounded-3xl flex items-center justify-center relative">
+                <span className="text-7xl font-abril">{title}</span>
+                {hasConfiguration && (
+                  <div
+                    className="absolute h-full w-5/6 flex justify-center items-end pb-3"
                     onClick={onClickSettings}
                   >
-                    <Settings2 />
-                  </IconButton>
+                    <span className="text-secondary">Tap to configure</span>
+                  </div>
                 )}
               </div>
             </div>

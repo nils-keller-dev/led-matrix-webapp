@@ -4,26 +4,26 @@ export const CAROUSEL_ITEMS = [
   {
     id: Mode.CLOCK,
     title: 'Clock',
-    hasSettingsIcon: false
+    hasConfiguration: false
   },
   {
     id: Mode.MUSIC,
     title: 'Music',
-    hasSettingsIcon: false
+    hasConfiguration: false
   },
   {
     id: Mode.IMAGE,
     title: 'Image',
-    hasSettingsIcon: true
+    hasConfiguration: true
   },
   {
     id: Mode.TEXT,
     title: 'Text',
-    hasSettingsIcon: true
+    hasConfiguration: true
   },
   {
     id: Mode.IDLE,
     title: 'Idle',
-    hasSettingsIcon: false
+    hasConfiguration: false
   }
 ]
