@@ -1,20 +1,19 @@
 import { useSignal } from '@preact/signals'
-import { LoaderCircle, Sun, SunDim } from 'lucide-preact'
+import { LoaderCircle } from 'lucide-preact'
 import { useEffect } from 'preact/hooks'
 import { getData } from './api/data.get'
 import { getImages } from './api/images.get'
 import { postJson } from './api/json.post'
 import { Carousel } from './components/Carousel'
-import { ColorInput } from './components/ColorInput'
 import { Drawer } from './components/Drawer'
+import { GlobalConfiguration } from './components/GlobalConfiguration'
 import { Header } from './components/Header'
 import { Image } from './components/settingGroup/Image'
 import { Text } from './components/settingGroup/Text'
-import { Slider } from './components/Slider'
 import { CAROUSEL_ITEMS } from './constants/CarouselItems'
 import { Mode } from './constants/enums/Mode'
 import { Data } from './constants/interfaces/Data'
-import { hexToRgb, rgbToHex } from './utils/ColorConversion'
+import { hexToRgb } from './utils/ColorConversion'
 
 export default function App() {
   const data = useSignal<Data | null>(null)
@@ -68,23 +67,13 @@ export default function App() {
               onClickSettings={onClickCarouselSettings}
               onChange={onChangeCarouselIndex}
             />
-            <div className="flex flex-col gap-5 fixed w-full p-7 bottom-0 border-secondary border-t">
-              <div className="flex gap-3 flex-row">
-                <SunDim class="text-muted-foreground shrink-0" />
-                <Slider
-                  min={0}
-                  max={100}
-                  initialValue={data.value?.brightness}
-                  onChange={updateBrightness}
-                />
-                <Sun class="text-muted-foreground shrink-0" />
-              </div>
-              <ColorInput
-                initialValue={rgbToHex(data.value.color!)}
-                onChange={updateColor}
-              />
-            </div>
           </div>
+          <GlobalConfiguration
+            brightness={data.value.brightness!}
+            color={data.value.color!}
+            updateBrightness={updateBrightness}
+            updateColor={updateColor}
+          />
           <Drawer
             isExpanded={isDrawerOpen.value}
             onChangeIsExpanded={onChangeIsDrawerExpanded}
