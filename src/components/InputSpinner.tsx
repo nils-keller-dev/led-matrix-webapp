@@ -43,7 +43,7 @@ export function InputSpinner({
 
   return (
     <div className="flex gap-2">
-      <IconButton onClick={decrease}>
+      <IconButton aria-label="decrease" onClick={decrease}>
         <Minus />
       </IconButton>
       <div className="flex items-center gap-1">
@@ -61,7 +61,7 @@ export function InputSpinner({
           />
         ))}
       </div>
-      <IconButton onClick={increase}>
+      <IconButton aria-label="increase" onClick={increase}>
         <Plus />
       </IconButton>
     </div>

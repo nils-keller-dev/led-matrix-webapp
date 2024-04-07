@@ -81,6 +81,7 @@ export function Carousel({
                 {title}
                 {hasSettingsIcon && (
                   <IconButton
+                    aria-label="settings"
                     class="absolute top-2 right-2"
                     onClick={onClickSettings}
                   >
@@ -97,12 +98,14 @@ export function Carousel({
       <div className="absolute top-0 right-0 h-full w-1/12 bg-gradient-to-l from-background via-50% via-background/65 to-transparent" />
 
       <IconButton
+        aria-label="previous"
         class="absolute top-1/2 left-5 -translate-y-1/2"
         onClick={onPrevButtonClick}
       >
         <ArrowLeft />
       </IconButton>
       <IconButton
+        aria-label="next"
         class="absolute top-1/2 right-5 -translate-y-1/2"
         onClick={onNextButtonClick}
       >

@@ -41,6 +41,7 @@ export function ColorInput({ initialValue, onChange }: ColorInputProps) {
       />
       <input
         id="picker"
+        aria-label="color picker"
         ref={colorInput}
         type="color"
         value={currentColor.value}

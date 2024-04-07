@@ -40,6 +40,7 @@ function ImageItem({
         </div>
       )}
       <img
+        alt={image}
         src={`image/${image}`}
         className={`size-full object-contain ${isLoading.value ? 'opacity-0' : 'opacity-100'}`}
         onClick={() => onSelect(image)}
