@@ -17,7 +17,7 @@ export function GlobalConfiguration({
   updateColor
 }: GlobalConfigurationProps) {
   return (
-    <div className="flex flex-col gap-5 fixed w-full p-7 bottom-0">
+    <div className="flex flex-col gap-5 w-full p-7">
       <div className="flex gap-3 flex-row">
         <SunDim class="text-muted-foreground shrink-0" />
         <Slider

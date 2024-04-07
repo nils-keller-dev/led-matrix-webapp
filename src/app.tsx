@@ -58,22 +58,22 @@ export default function App() {
   return (
     <>
       {data.value && images.value ? (
-        <div className="size-screen">
+        <div className="flex flex-col justify-between h-full">
           <Header />
-          <div className="flex size-full items-end pb-72">
+          <div className="flex flex-col gap-10">
             <Carousel
               slides={CAROUSEL_ITEMS}
               initialValue={Mode[data.value.mode as keyof typeof Mode]}
               onClickSettings={onClickCarouselSettings}
               onChange={onChangeCarouselIndex}
             />
+            <GlobalConfiguration
+              brightness={data.value.brightness!}
+              color={data.value.color!}
+              updateBrightness={updateBrightness}
+              updateColor={updateColor}
+            />
           </div>
-          <GlobalConfiguration
-            brightness={data.value.brightness!}
-            color={data.value.color!}
-            updateBrightness={updateBrightness}
-            updateColor={updateColor}
-          />
           <Drawer
             isExpanded={isDrawerOpen.value}
             onChangeIsExpanded={onChangeIsDrawerExpanded}
