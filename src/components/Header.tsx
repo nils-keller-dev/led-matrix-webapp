@@ -15,10 +15,12 @@ export function Header() {
         v1.0.0
       </a>
       <img src="/logo.svg" alt="logo" className="size-14" />
-      <div className="relative w-14 text-muted-foreground">
+      <div className="relative ml-8 text-muted-foreground">
         <div
-          className="absolute top-1/2 left-1/2 transition-all ease-in -translate-x-1/2 -translate-y-1/2 rounded-full backdrop-invert z-40 h-1 w-0 pointer-events-none"
-          style={theme.value ? { width: '212vh', height: '212vh' } : undefined}
+          className="absolute top-1/2 left-1/2 transition-all ease-in -translate-x-1/2 -translate-y-1/2 rounded-full backdrop-invert z-40 pointer-events-none aspect-square w-[1px] invisible"
+          style={
+            theme.value ? { width: '212vh', visibility: 'visible' } : undefined
+          }
         />
         <SunMoon onClick={toggleTheme} className="z-50 float-right" />
       </div>
