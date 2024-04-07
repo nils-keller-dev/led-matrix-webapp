@@ -12,5 +12,15 @@ export default {
       abril: ['Abril Fatface', 'sans-serif']
     }
   },
-  plugins: []
+  plugins: [
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.size-screen': {
+          width: '100vw',
+          height: '100vh'
+        }
+      }
+      addUtilities(newUtilities, ['responsive', 'hover'])
+    }
+  ]
 }
