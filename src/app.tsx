@@ -59,7 +59,7 @@ export default function App() {
   return (
     <>
       {data.value && images.value ? (
-        <div className="w-screen h-screen">
+        <div className="size-screen">
           <Header />
           <div className="flex size-full items-end pb-72">
             <Carousel
@@ -106,7 +106,7 @@ export default function App() {
           </Drawer>
         </div>
       ) : (
-        <div className="flex items-center justify-center w-screen h-screen">
+        <div className="flex items-center justify-center size-screen">
           <LoaderCircle className="size-5 animate-spin" />
         </div>
       )}
