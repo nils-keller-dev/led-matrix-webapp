@@ -84,7 +84,7 @@ export function Image({ image, images }: ImageSettingsProps) {
       return
     }
 
-    // TODO image editor
+    // TODO image editor react-image-crop
     postImage(file)
 
     imageList.value = [...imageList.value, file.name]
