@@ -57,9 +57,9 @@ export default function App() {
   }, [])
 
   return (
-    <div className="bg-background text-primary size-full">
+    <>
       {data.value && images.value ? (
-        <div className="size-full">
+        <div className="w-screen h-screen">
           <Header />
           <div className="flex size-full items-end pb-72">
             <Carousel
@@ -68,53 +68,48 @@ export default function App() {
               onClickSettings={onClickCarouselSettings}
               onChange={onChangeCarouselIndex}
             />
-            {currentCarouselIndex.value >= 0 && (
-              <Drawer
-                header={
-                  <div className="flex flex-col gap-5">
-                    <div className="flex gap-3 flex-row">
-                      <SunDim class="text-muted-foreground shrink-0" />
-                      <Slider
-                        min={0}
-                        max={100}
-                        initialValue={data.value?.brightness}
-                        onChange={updateBrightness}
-                      />
-                      <Sun class="text-muted-foreground shrink-0" />
-                    </div>
-                    <ColorInput
-                      initialValue={rgbToHex(data.value.color!)}
-                      onChange={updateColor}
-                    />
-                  </div>
-                }
-                isExpanded={isDrawerOpen.value}
-                onChangeIsExpanded={onChangeIsDrawerExpanded}
-                childrenId={currentCarouselIndex.value}
-              >
-                {CAROUSEL_ITEMS[currentCarouselIndex.value].hasSettingsIcon && (
-                  <>
-                    {currentCarouselIndex.value === 2 && (
-                      <Image image={data.value.image!} images={images.value} />
-                    )}
-                    {currentCarouselIndex.value === 3 && (
-                      <Text
-                        text={data.value.text!}
-                        vertical={data.value.vertical!}
-                        textSpeed={data.value.textSpeed!}
-                      />
-                    )}
-                  </>
-                )}
-              </Drawer>
-            )}
+            <div className="flex flex-col gap-5 fixed w-full p-7 bottom-0 border-secondary border-t">
+              <div className="flex gap-3 flex-row">
+                <SunDim class="text-muted-foreground shrink-0" />
+                <Slider
+                  min={0}
+                  max={100}
+                  initialValue={data.value?.brightness}
+                  onChange={updateBrightness}
+                />
+                <Sun class="text-muted-foreground shrink-0" />
+              </div>
+              <ColorInput
+                initialValue={rgbToHex(data.value.color!)}
+                onChange={updateColor}
+              />
+            </div>
           </div>
+          <Drawer
+            isExpanded={isDrawerOpen.value}
+            onChangeIsExpanded={onChangeIsDrawerExpanded}
+          >
+            {currentCarouselIndex.value >= 0 && (
+              <>
+                {currentCarouselIndex.value === 2 && (
+                  <Image image={data.value.image!} images={images.value} />
+                )}
+                {currentCarouselIndex.value === 3 && (
+                  <Text
+                    text={data.value.text!}
+                    vertical={data.value.vertical!}
+                    textSpeed={data.value.textSpeed!}
+                  />
+                )}
+              </>
+            )}
+          </Drawer>
         </div>
       ) : (
-        <div className="flex items-center justify-center size-full">
+        <div className="flex items-center justify-center w-screen h-screen">
           <LoaderCircle className="size-5 animate-spin" />
         </div>
       )}
-    </div>
+    </>
   )
 }

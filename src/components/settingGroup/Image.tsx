@@ -60,10 +60,6 @@ export function Image({ image, images }: ImageSettingsProps) {
   const currentImage = useSignal(image)
   const imageList = useSignal(images)
 
-  const startDrag = (e: MouseEvent | TouchEvent) => {
-    e.stopPropagation()
-  }
-
   const onDeleteImage = (image: string) => {
     deleteImage(image)
 
@@ -95,11 +91,7 @@ export function Image({ image, images }: ImageSettingsProps) {
   }
 
   return (
-    <div
-      className="h-[50vh] overflow-y-scroll"
-      onMouseDown={startDrag}
-      onTouchStart={startDrag}
-    >
+    <div className="overflow-y-scroll">
       <div className="grid grid-cols-3 gap-3">
         {imageList.value.map((imageName, index) => (
           <ImageItem
