@@ -84,7 +84,9 @@ export function Carousel({
                     className="absolute h-full w-5/6 flex justify-center items-end pb-3"
                     onClick={onClickSettings}
                   >
-                    <span className="text-secondary">Tap to configure</span>
+                    <span className="text-muted-foreground">
+                      Tap to configure
+                    </span>
                   </div>
                 )}
               </div>
