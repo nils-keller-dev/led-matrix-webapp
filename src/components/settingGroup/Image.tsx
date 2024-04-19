@@ -1,5 +1,5 @@
 import { useSignal } from '@preact/signals'
-import { LoaderCircle, Plus } from 'lucide-preact'
+import { ImageOff, LoaderCircle, Plus } from 'lucide-preact'
 import { deleteImage } from '../../api/image.delete'
 import { postImage } from '../../api/image.post'
 import { postJson } from '../../api/json.post'
@@ -18,6 +18,7 @@ function ImageItem({
   onSelect
 }: ImageItemSettingsProps) {
   const isLoading = useSignal(true)
+  const isError = useSignal(false)
 
   const onContextMenu = (e: Event, image: string) => {
     e.preventDefault()
@@ -30,22 +31,33 @@ function ImageItem({
     isLoading.value = false
   }
 
+  const onError = () => {
+    isLoading.value = false
+    isError.value = true
+  }
+
   return (
     <div
-      className={`w-full aspect-square rounded-xl overflow-hidden relative ${isSelected ? 'border-2 border-primary' : 'border border-secondary'}`}
+      className={`w-full aspect-square rounded-xl overflow-hidden relative outline ${isSelected ? 'outline-2 outline-primary -outline-offset-2' : 'outline-secondary -outline-offset-1'}`}
+      onClick={() => onSelect(image)}
+      onContextMenu={(e) => onContextMenu(e, image)}
     >
       {isLoading.value && (
         <div className="size-full flex justify-center items-center">
           <LoaderCircle className="size-5 animate-spin" />
         </div>
       )}
+      {isError.value && (
+        <div className="size-full flex justify-center items-center">
+          <ImageOff className="size-5 text-muted-foreground" />
+        </div>
+      )}
       <img
         alt={image}
         src={`image/${image}`}
         className={`size-full object-contain ${isLoading.value ? 'opacity-0' : 'opacity-100'}`}
-        onClick={() => onSelect(image)}
-        onContextMenu={(e) => onContextMenu(e, image)}
         onLoad={onLoad}
+        onError={onError}
       />
     </div>
   )
