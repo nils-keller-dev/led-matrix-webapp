@@ -12,12 +12,10 @@ import { Image } from './components/settingGroup/Image'
 import { Text } from './components/settingGroup/Text'
 import { CAROUSEL_ITEMS } from './constants/CarouselItems'
 import { Mode } from './constants/enums/Mode'
-import { Data } from './constants/interfaces/Data'
+import { data, images } from './store/store'
 import { hexToRgb } from './utils/ColorConversion'
 
 export default function App() {
-  const data = useSignal<Data | null>(null)
-  const images = useSignal<string[] | null>(null)
   const currentCarouselIndex = useSignal(-1)
 
   const isDrawerOpen = useSignal(false)

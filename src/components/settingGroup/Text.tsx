@@ -1,4 +1,5 @@
 import { postJson } from '../../api/json.post'
+import { data } from '../../store/store'
 import { InputSpinner } from '../InputSpinner'
 import { InputWrapper } from '../InputWrapper'
 import { Switch } from '../Switch'
@@ -12,14 +13,17 @@ type TextSettingsProps = {
 
 export function Text(initialValues: TextSettingsProps) {
   const updateTextSpeed = (textSpeed: number) => {
+    data.value!.textSpeed = textSpeed
     postJson({ textSpeed })
   }
 
   const updateText = (text: string) => {
+    data.value!.text = text
     postJson({ text })
   }
 
   const updateTextVertical = (vertical: boolean) => {
+    data.value!.vertical = vertical
     postJson({ vertical })
   }
 
