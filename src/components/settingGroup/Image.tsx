@@ -3,7 +3,7 @@ import { ImageOff, LoaderCircle, Plus } from 'lucide-preact'
 import { deleteImage } from '../../api/image.delete'
 import { postImage } from '../../api/image.post'
 import { postJson } from '../../api/json.post'
-import { data, images as imagesStore } from '../../store/store'
+import { data as storedData, images as storedImages } from '../../store/store'
 
 type ImageItemSettingsProps = {
   image: string
@@ -74,19 +74,20 @@ export function Image({ image, images }: ImageSettingsProps) {
   const imageList = useSignal(images)
 
   const onDeleteImage = (image: string) => {
-    imagesStore.value = imagesStore.value?.filter((i) => i !== image) ?? null
+    storedImages.value = storedImages.value?.filter((i) => i !== image) ?? null
     deleteImage(image)
 
     imageList.value = imageList.value.filter((imageName) => imageName !== image)
 
     if (image === currentImage.value) {
       currentImage.value = imageList.value[0]
+      storedData.value!.image = currentImage.value
       postJson({ image: currentImage.value })
     }
   }
 
   const updateImage = (image: string) => {
-    data.value!.image = image
+    storedData.value!.image = image
     postJson({ image })
     currentImage.value = image
   }
@@ -99,11 +100,11 @@ export function Image({ image, images }: ImageSettingsProps) {
       return
     }
 
-    imagesStore.value = [...imagesStore.value!, file.name]
+    storedImages.value = [...storedImages.value!, file.name]
     // TODO image editor react-image-crop
     postImage(file)
 
-    imageList.value = [...imageList.value, file.name]
+    imageList.value = storedImages.value
   }
 
   return (
