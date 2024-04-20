@@ -1,7 +1,8 @@
 import { Data } from '../constants/interfaces/Data'
+import { fetchWithCheck } from '../utils/fetchWithCheck'
 
 export const postJson = async (data: Data) => {
-  return fetch('/json', {
+  return fetchWithCheck('/json', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

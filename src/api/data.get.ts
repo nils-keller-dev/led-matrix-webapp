@@ -1,5 +1,6 @@
 import { Data } from '../constants/interfaces/Data'
+import { fetchWithCheck } from '../utils/fetchWithCheck'
 
 export const getData = (): Promise<Data> => {
-  return fetch('/data').then((response) => response.json())
+  return fetchWithCheck('/data').then((response) => response.json())
 }

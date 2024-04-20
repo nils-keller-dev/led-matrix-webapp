@@ -1,5 +1,7 @@
+import { fetchWithCheck } from '../utils/fetchWithCheck'
+
 export const deleteImage = (image: string) => {
-  return fetch(`/image/${image}`, {
+  return fetchWithCheck(`/image/${image}`, {
     method: 'DELETE'
   })
 }
