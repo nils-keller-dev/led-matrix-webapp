@@ -100,9 +100,13 @@ export function Image({ image, images }: ImageSettingsProps) {
       return
     }
 
-    storedImages.value = [...storedImages.value!, file.name]
     // TODO image editor react-image-crop
-    postImage(file)
+    const fileName = file.name.replace(/[^a-z0-9.]/gi, '_')
+
+    storedImages.value = [...storedImages.value!, fileName]
+    const renamedFile = new File([file], fileName, { type: file.type })
+
+    postImage(renamedFile)
 
     imageList.value = storedImages.value
   }
