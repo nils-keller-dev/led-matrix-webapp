@@ -79,7 +79,7 @@ export default function App() {
             {currentCarouselIndex.value >= 0 && (
               <>
                 {currentCarouselIndex.value === 2 && (
-                  <Image image={data.value.image!} images={images.value} />
+                  <Image image={data.value.image!} />
                 )}
                 {currentCarouselIndex.value === 3 && (
                   <Text

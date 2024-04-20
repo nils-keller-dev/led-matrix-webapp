@@ -66,21 +66,18 @@ function ImageItem({
 
 type ImageSettingsProps = {
   image: string
-  images: string[]
 }
 
-export function Image({ image, images }: ImageSettingsProps) {
-  const currentImage = useSignal(image)
-  const imageList = useSignal(images)
+export function Image({ image }: ImageSettingsProps) {
+  const currentImage = useSignal<string | undefined>(image)
 
   const onDeleteImage = (image: string) => {
-    storedImages.value = storedImages.value?.filter((i) => i !== image) ?? null
     deleteImage(image)
 
-    imageList.value = imageList.value.filter((imageName) => imageName !== image)
+    storedImages.value = storedImages.value?.filter((i) => i !== image) || null
 
     if (image === currentImage.value) {
-      currentImage.value = imageList.value[0]
+      currentImage.value = storedImages.value?.[0]
       storedData.value!.image = currentImage.value
       postJson({ image: currentImage.value })
     }
@@ -102,19 +99,17 @@ export function Image({ image, images }: ImageSettingsProps) {
 
     // TODO image editor react-image-crop
     const fileName = file.name.replace(/[^a-z0-9.]/gi, '_')
-
-    storedImages.value = [...storedImages.value!, fileName]
     const renamedFile = new File([file], fileName, { type: file.type })
 
     postImage(renamedFile)
 
-    imageList.value = storedImages.value
+    storedImages.value = [...storedImages.value!, fileName]
   }
 
   return (
     <div className="overflow-y-scroll">
       <div className="grid grid-cols-3 gap-3">
-        {imageList.value.map((imageName, index) => (
+        {storedImages.value!.map((imageName, index) => (
           <ImageItem
             key={index}
             image={imageName}
