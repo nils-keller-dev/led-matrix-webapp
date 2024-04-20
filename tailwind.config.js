@@ -4,9 +4,9 @@ export default {
   theme: {
     colors: {
       primary: '#fafafa',
-      secondary: '#27272a',
-      background: '#09090b',
-      'muted-foreground': '#a1a1aa'
+      'muted-foreground': '#a1a1aa',
+      secondary: '#303036',
+      background: '#09090b'
     },
     fontFamily: {
       abril: ['Abril Fatface', 'sans-serif']
