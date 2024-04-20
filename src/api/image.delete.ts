@@ -1,5 +1,5 @@
-export const deleteImage = (image: string): Promise<void> => {
+export const deleteImage = (image: string) => {
   return fetch(`/image/${image}`, {
     method: 'DELETE'
-  }).then((response) => response.json())
+  })
 }

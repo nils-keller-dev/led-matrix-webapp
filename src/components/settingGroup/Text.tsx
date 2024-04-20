@@ -13,18 +13,21 @@ type TextSettingsProps = {
 
 export function Text(initialValues: TextSettingsProps) {
   const updateTextSpeed = (textSpeed: number) => {
-    data.value!.textSpeed = textSpeed
-    postJson({ textSpeed })
+    postJson({ textSpeed }).then(() => {
+      data.value!.textSpeed = textSpeed
+    })
   }
 
   const updateText = (text: string) => {
-    data.value!.text = text
-    postJson({ text })
+    postJson({ text }).then(() => {
+      data.value!.text = text
+    })
   }
 
   const updateTextVertical = (vertical: boolean) => {
-    data.value!.vertical = vertical
-    postJson({ vertical })
+    postJson({ vertical }).then(() => {
+      data.value!.vertical = vertical
+    })
   }
 
   return (

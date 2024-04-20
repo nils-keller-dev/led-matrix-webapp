@@ -69,24 +69,28 @@ type ImageSettingsProps = {
 }
 
 export function Image({ image }: ImageSettingsProps) {
+  // TODO delete this?
   const currentImage = useSignal<string | undefined>(image)
 
   const onDeleteImage = (image: string) => {
-    deleteImage(image)
+    deleteImage(image).then(() => {
+      storedImages.value =
+        storedImages.value?.filter((i) => i !== image) || null
 
-    storedImages.value = storedImages.value?.filter((i) => i !== image) || null
-
-    if (image === currentImage.value) {
-      currentImage.value = storedImages.value?.[0]
-      storedData.value!.image = currentImage.value
-      postJson({ image: currentImage.value })
-    }
+      if (image === currentImage.value) {
+        postJson({ image: currentImage.value }).then(() => {
+          currentImage.value = storedImages.value?.[0]
+          storedData.value!.image = currentImage.value
+        })
+      }
+    })
   }
 
   const updateImage = (image: string) => {
-    storedData.value!.image = image
-    postJson({ image })
-    currentImage.value = image
+    postJson({ image }).then(() => {
+      storedData.value!.image = image
+      currentImage.value = image
+    })
   }
 
   const uploadFile = (e: Event) => {
@@ -101,7 +105,9 @@ export function Image({ image }: ImageSettingsProps) {
     const fileName = file.name.replace(/[^a-z0-9.]/gi, '_')
     const renamedFile = new File([file], fileName, { type: file.type })
 
-    postImage(renamedFile)
+    postImage(renamedFile).then(() => {
+      // TODO only try to render image when this succeeds
+    })
 
     storedImages.value = [...storedImages.value!, fileName]
   }
