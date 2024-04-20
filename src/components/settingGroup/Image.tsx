@@ -39,7 +39,7 @@ function ImageItem({
 
   return (
     <div
-      className={`w-full aspect-square rounded-xl overflow-hidden relative outline ${isSelected ? 'outline-2 outline-primary -outline-offset-2' : 'outline-secondary -outline-offset-1'}`}
+      className={`w-full aspect-square rounded-xl overflow-hidden relative outline ${isSelected ? 'outline-2 outline-primary -outline-offset-2' : 'outline-1 outline-secondary -outline-offset-1'}`}
       onClick={() => onSelect(image)}
       onContextMenu={(e) => onContextMenu(e, image)}
     >
