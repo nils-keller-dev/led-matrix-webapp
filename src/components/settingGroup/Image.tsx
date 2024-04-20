@@ -69,7 +69,6 @@ type ImageSettingsProps = {
 }
 
 export function Image({ image }: ImageSettingsProps) {
-  // TODO delete this?
   const currentImage = useSignal<string | undefined>(image)
 
   const onDeleteImage = (image: string) => {
@@ -78,18 +77,21 @@ export function Image({ image }: ImageSettingsProps) {
         storedImages.value?.filter((i) => i !== image) || null
 
       if (image === currentImage.value) {
-        postJson({ image: currentImage.value }).then(() => {
-          currentImage.value = storedImages.value?.[0]
-          storedData.value!.image = currentImage.value
+        const newImage = storedImages.value?.[0]
+
+        currentImage.value = newImage
+        postJson({ image: newImage }).then(() => {
+          storedData.value!.image = newImage
         })
       }
     })
   }
 
   const updateImage = (image: string) => {
+    currentImage.value = image
+
     postJson({ image }).then(() => {
       storedData.value!.image = image
-      currentImage.value = image
     })
   }
 
