@@ -7,7 +7,6 @@ type DialogProps = {
 }
 
 export function Dialog({ children, open, onOpenChange }: DialogProps) {
-  // TODO fix errors
   return (
     <RadixDialog.Root open={open} onOpenChange={onOpenChange}>
       <RadixDialog.Portal>
