@@ -11,16 +11,19 @@ export function AddImage() {
   const imgSrc = useSignal<string>('')
   const croppedImageFile = useSignal<File | undefined>(undefined)
 
-  const onSelectFile = (e) => {
-    // TODO reset file input value after selecting
+  const onSelectFile = (e: Event) => {
+    const target = e.target as HTMLInputElement
+    const files = target.files as FileList
+
     setModalOpen(true)
 
     const reader = new FileReader()
-    reader.addEventListener(
-      'load',
-      () => (imgSrc.value = reader.result?.toString() || '')
-    )
-    reader.readAsDataURL(e.target.files[0])
+    reader.addEventListener('load', () => {
+      imgSrc.value = reader.result?.toString() || ''
+      target.value = ''
+    })
+
+    reader.readAsDataURL(files[0])
   }
 
   const uploadFile = () => {
