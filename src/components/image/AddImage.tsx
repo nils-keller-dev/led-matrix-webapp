@@ -39,6 +39,7 @@ export function AddImage() {
       return
     }
 
+    // TODO rename duplicate files
     const newFileName = fileName.value.replace(/[^a-z0-9.]/gi, '_')
     const renamedFile = new File([file], newFileName, { type: file.type })
 
