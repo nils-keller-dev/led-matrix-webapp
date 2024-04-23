@@ -1,8 +1,7 @@
-// yoinked from https://codesandbox.io/p/sandbox/react-image-crop-demo-with-react-hooks-y831o?file=/src/canvasPreview.ts
-
 import { PixelCrop } from 'react-image-crop'
 
 const TO_RADIANS = Math.PI / 180
+const MAX_DIMENSION = 128
 
 export async function canvasPreview(
   image: HTMLImageElement,
@@ -18,18 +17,24 @@ export async function canvasPreview(
 
   const scaleX = image.naturalWidth / image.width
   const scaleY = image.naturalHeight / image.height
-  // devicePixelRatio slightly increases sharpness on retina devices
-  // at the expense of slightly slower render times and needing to
-  // size the image back down if you want to download/upload and be
-  // true to the images natural size.
-  const pixelRatio = window.devicePixelRatio
-  // const pixelRatio = 1
 
-  canvas.width = Math.floor(crop.width * scaleX * pixelRatio)
-  canvas.height = Math.floor(crop.height * scaleY * pixelRatio)
+  const cropWidth = Math.floor(crop.width * scaleX)
+  const cropHeight = Math.floor(crop.height * scaleY)
 
-  ctx.scale(pixelRatio, pixelRatio)
-  ctx.imageSmoothingQuality = 'high'
+  const maxDimension = Math.max(cropWidth, cropHeight)
+  const scaleFactor = MAX_DIMENSION / maxDimension
+
+  const finalWidth =
+    maxDimension === cropWidth
+      ? MAX_DIMENSION
+      : Math.floor(cropWidth * scaleFactor)
+  const finalHeight =
+    maxDimension === cropHeight
+      ? MAX_DIMENSION
+      : Math.floor(cropHeight * scaleFactor)
+
+  canvas.width = finalWidth
+  canvas.height = finalHeight
 
   const cropX = crop.x * scaleX
   const cropY = crop.y * scaleY
@@ -40,6 +45,8 @@ export async function canvasPreview(
 
   ctx.save()
 
+  // 5) Scale the image to fit the canvas
+  ctx.scale(finalWidth / cropWidth, finalHeight / cropHeight)
   // 4) Move the crop origin to the canvas origin (0,0)
   ctx.translate(-cropX, -cropY)
   // 3) Move the origin to the center of the original position

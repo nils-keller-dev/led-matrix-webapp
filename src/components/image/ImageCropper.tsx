@@ -42,7 +42,6 @@ export function ImageCropper({ src, onChangeCrop }: ImageCropperProps) {
         rotation.value
       )
 
-      // TODO change resolution to 64x64
       previewCanvasRef.current.toBlob(
         (blob) => {
           if (blob) {
