@@ -71,6 +71,7 @@ export function ImageCropper({ src, onChangeCrop }: ImageCropperProps) {
         onComplete={setCompletedCrop}
         minHeight={10}
         minWidth={10}
+        aspect={1}
       >
         <img
           ref={imgRef}
