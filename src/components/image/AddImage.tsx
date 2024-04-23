@@ -66,6 +66,7 @@ export function AddImage() {
       </div>
       <Dialog open={modalOpen} onOpenChange={setModalOpen}>
         <div className="flex flex-col gap-4">
+          {/* TODO don't try to crop gifs */}
           <ImageCropper src={imgSrc.value} onChangeCrop={onChangeCrop} />
           {/* TODO create new button component */}
           <button
