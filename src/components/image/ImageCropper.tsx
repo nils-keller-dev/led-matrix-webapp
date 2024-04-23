@@ -1,7 +1,10 @@
+import { useSignal } from '@preact/signals'
+import { RotateCwSquare } from 'lucide-preact'
 import { useEffect, useRef, useState } from 'preact/hooks'
 import ReactCrop, { PixelCrop, type Crop } from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
 import { canvasPreview } from '../../utils/canvasPreview'
+import { IconButton } from '../IconButton'
 
 type ImageCropperProps = {
   src: string
@@ -11,6 +14,7 @@ type ImageCropperProps = {
 export function ImageCropper({ src, onChangeCrop }: ImageCropperProps) {
   const [crop, setCrop] = useState<Crop>()
   const [completedCrop, setCompletedCrop] = useState<PixelCrop>()
+  const rotation = useSignal(0)
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
   const imgRef = useRef<HTMLImageElement>(null)
 
@@ -31,7 +35,12 @@ export function ImageCropper({ src, onChangeCrop }: ImageCropperProps) {
       imgRef.current &&
       previewCanvasRef.current
     ) {
-      canvasPreview(imgRef.current, previewCanvasRef.current, completedCrop, 0)
+      canvasPreview(
+        imgRef.current,
+        previewCanvasRef.current,
+        completedCrop,
+        rotation.value
+      )
 
       // TODO change resolution to 64x64
       previewCanvasRef.current.toBlob(
@@ -47,9 +56,11 @@ export function ImageCropper({ src, onChangeCrop }: ImageCropperProps) {
         1
       )
     }
-  }, [completedCrop])
-  // TODO use rotate
-  // }, [completedCrop, rotate])
+  }, [completedCrop, rotation.value])
+
+  const onClickRotate = () => {
+    rotation.value = rotation.value + (90 % 360)
+  }
 
   return (
     <>
@@ -61,8 +72,16 @@ export function ImageCropper({ src, onChangeCrop }: ImageCropperProps) {
         minHeight={10}
         minWidth={10}
       >
-        <img ref={imgRef} src={src} onLoad={onImageLoad} />
+        <img
+          ref={imgRef}
+          src={src}
+          onLoad={onImageLoad}
+          style={{ rotate: `${rotation.value}deg` }}
+        />
       </ReactCrop>
+      <IconButton className="mx-auto" onClick={onClickRotate}>
+        <RotateCwSquare />
+      </IconButton>
       <canvas ref={previewCanvasRef} className="hidden" />
     </>
   )
