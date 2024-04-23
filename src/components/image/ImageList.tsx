@@ -1,10 +1,9 @@
 import { useSignal } from '@preact/signals'
-import { Plus } from 'lucide-preact'
 import { deleteImage } from '../../api/image.delete'
-import { postImage } from '../../api/image.post'
 import { postJson } from '../../api/json.post'
 import { data as storedData, images as storedImages } from '../../store/store'
 import { ImageItem } from '../image/ImageItem'
+import { AddImage } from './AddImage'
 
 type ImageListProps = {
   selected: string
@@ -37,25 +36,6 @@ export function ImageList({ selected }: ImageListProps) {
     })
   }
 
-  const uploadFile = (e: Event) => {
-    const target = e.target as HTMLInputElement
-    const file = target.files?.[0]
-
-    if (!file) {
-      return
-    }
-
-    // TODO image editor react-image-crop
-    const fileName = file.name.replace(/[^a-z0-9.]/gi, '_')
-    const renamedFile = new File([file], fileName, { type: file.type })
-
-    postImage(renamedFile).then(() => {
-      // TODO only try to render image when this succeeds
-    })
-
-    storedImages.value = [...storedImages.value!, fileName]
-  }
-
   return (
     <div className="overflow-y-scroll">
       <div className="grid grid-cols-3 gap-3">
@@ -68,17 +48,7 @@ export function ImageList({ selected }: ImageListProps) {
             onSelect={updateImage}
           />
         ))}
-        <div className="w-full aspect-square rounded-xl border border-dashed border-muted-foreground text-muted-foreground flex items-center justify-center relative">
-          <label htmlFor="file" className="size-full absolute" />
-          <input
-            type="file"
-            accept=".jpg, .jpeg, .png, .gif"
-            id="file"
-            className="opacity-0 size-0"
-            onInput={uploadFile}
-          />
-          <Plus />
-        </div>
+        <AddImage />
       </div>
     </div>
   )
