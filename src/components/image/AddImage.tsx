@@ -3,6 +3,7 @@ import { Plus } from 'lucide-preact'
 import { useState } from 'preact/hooks'
 import { postImage } from '../../api/image.post'
 import { images as storedImages } from '../../store/store'
+import { Button } from '../Button'
 import { Dialog } from '../Dialog'
 import { ImageCropper } from './ImageCropper'
 
@@ -75,16 +76,16 @@ export function AddImage() {
         <Plus />
       </div>
       <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-6">
           <ImageCropper src={imgSrc.value} onChangeCrop={onChangeCrop} />
-          {/* TODO create new button component */}
-          {/* TODO add cancel button */}
-          <button
-            className="outline-none border rounded-md border-muted-foreground ml-auto px-2"
-            onClick={onClickConfirm}
-          >
-            Confirm
-          </button>
+          <div className="flex justify-between">
+            <Button
+              text="Cancel"
+              onClick={() => setModalOpen(false)}
+              isSecondary={true}
+            />
+            <Button text="Confirm" onClick={onClickConfirm} />
+          </div>
         </div>
       </Dialog>
     </>
