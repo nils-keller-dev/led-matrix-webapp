@@ -31,13 +31,7 @@ export function ImageCropper({ src, onChangeCrop }: ImageCropperProps) {
       imgRef.current &&
       previewCanvasRef.current
     ) {
-      canvasPreview(
-        imgRef.current,
-        previewCanvasRef.current,
-        completedCrop,
-        1,
-        0
-      )
+      canvasPreview(imgRef.current, previewCanvasRef.current, completedCrop, 0)
 
       // TODO change resolution to 64x64
       previewCanvasRef.current.toBlob(
@@ -54,8 +48,8 @@ export function ImageCropper({ src, onChangeCrop }: ImageCropperProps) {
       )
     }
   }, [completedCrop])
-  // TODO use rotate and remove scale
-  // }, [completedCrop, scale, rotate])
+  // TODO use rotate
+  // }, [completedCrop, rotate])
 
   return (
     <>
