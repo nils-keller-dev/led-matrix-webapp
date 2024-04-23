@@ -14,7 +14,14 @@ export function AddImage() {
 
   const onSelectFile = (e: Event) => {
     const target = e.target as HTMLInputElement
-    const files = target.files as FileList
+    const file = (target.files as FileList)[0]
+
+    fileName.value = file.name
+
+    if (file.type === 'image/gif') {
+      uploadFile(file)
+      return
+    }
 
     setModalOpen(true)
 
@@ -24,13 +31,10 @@ export function AddImage() {
       target.value = ''
     })
 
-    fileName.value = files[0].name
-    reader.readAsDataURL(files[0])
+    reader.readAsDataURL(file)
   }
 
-  const uploadFile = () => {
-    const file = croppedImageFile.value
-
+  const uploadFile = (file?: File) => {
     if (!file) {
       return
     }
@@ -52,6 +56,10 @@ export function AddImage() {
     croppedImageFile.value = file
   }
 
+  const onClickConfirm = () => {
+    uploadFile(croppedImageFile.value)
+  }
+
   return (
     <>
       <div className="w-full aspect-square rounded-xl border border-dashed border-muted-foreground text-muted-foreground flex items-center justify-center relative">
@@ -67,13 +75,12 @@ export function AddImage() {
       </div>
       <Dialog open={modalOpen} onOpenChange={setModalOpen}>
         <div className="flex flex-col gap-4">
-          {/* TODO don't try to crop gifs */}
           <ImageCropper src={imgSrc.value} onChangeCrop={onChangeCrop} />
           {/* TODO create new button component */}
           {/* TODO add cancel button */}
           <button
             className="outline-none border rounded-md border-muted-foreground ml-auto px-2"
-            onClick={uploadFile}
+            onClick={onClickConfirm}
           >
             Confirm
           </button>
