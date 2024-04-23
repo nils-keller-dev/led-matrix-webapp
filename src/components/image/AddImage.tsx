@@ -43,7 +43,7 @@ export function AddImage() {
     const normalizedFileName = fileName.value.replace(/[^a-z0-9.]/gi, '_')
 
     const newFileName = storedImages.value?.includes(normalizedFileName)
-      ? `${normalizedFileName}`
+      ? `${Date.now()}_${normalizedFileName}`
       : normalizedFileName
 
     const renamedFile = new File([file], newFileName, { type: file.type })
