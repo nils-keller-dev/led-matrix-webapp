@@ -6,7 +6,7 @@ export function IconButton(props: JSX.HTMLAttributes<HTMLButtonElement>) {
   const { children, ...buttonProps } = props
 
   return (
-    <button {...buttonProps} className={`${styles} ${buttonProps.class}`}>
+    <button {...buttonProps} className={`${styles} ${buttonProps.className}`}>
       {children}
     </button>
   )

@@ -100,14 +100,14 @@ export function Carousel({
 
       <IconButton
         aria-label="previous"
-        class="absolute top-1/2 left-5 -translate-y-1/2"
+        className="absolute top-1/2 left-5 -translate-y-1/2"
         onClick={onPrevButtonClick}
       >
         <ArrowLeft />
       </IconButton>
       <IconButton
         aria-label="next"
-        class="absolute top-1/2 right-5 -translate-y-1/2"
+        className="absolute top-1/2 right-5 -translate-y-1/2"
         onClick={onNextButtonClick}
       >
         <ArrowRight />
