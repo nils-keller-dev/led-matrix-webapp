@@ -69,6 +69,7 @@ export function AddImage() {
           {/* TODO don't try to crop gifs */}
           <ImageCropper src={imgSrc.value} onChangeCrop={onChangeCrop} />
           {/* TODO create new button component */}
+          {/* TODO add cancel button */}
           <button
             className="outline-none border rounded-md border-muted-foreground ml-auto px-2"
             onClick={uploadFile}
