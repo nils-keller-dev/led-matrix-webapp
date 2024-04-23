@@ -9,11 +9,10 @@ type ImageCropperProps = {
 }
 
 export function ImageCropper({ src, onChangeCrop }: ImageCropperProps) {
-  // TODO use useSignal instead of useState
   const [crop, setCrop] = useState<Crop>()
+  const [completedCrop, setCompletedCrop] = useState<PixelCrop>()
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
   const imgRef = useRef<HTMLImageElement>(null)
-  const [completedCrop, setCompletedCrop] = useState<PixelCrop>()
 
   const onImageLoad = () => {
     setCrop({
@@ -62,9 +61,9 @@ export function ImageCropper({ src, onChangeCrop }: ImageCropperProps) {
     <>
       <ReactCrop
         crop={crop}
-        onChange={(c) => setCrop(c)}
+        onChange={setCrop}
         className="outline-none"
-        onComplete={(c) => setCompletedCrop(c)}
+        onComplete={setCompletedCrop}
         minHeight={10}
         minWidth={10}
       >
