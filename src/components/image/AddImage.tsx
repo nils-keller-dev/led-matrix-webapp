@@ -48,8 +48,12 @@ export function AddImage() {
 
     const renamedFile = new File([file], newFileName, { type: file.type })
 
-    postImage(renamedFile).then(() => {
-      // TODO only try to render image when this succeeds
+    postImage(renamedFile).catch(() => {
+      storedImages.value =
+        storedImages.value?.toSpliced(
+          storedImages.value.findIndex((img) => img === newFileName),
+          1
+        ) ?? null
     })
 
     storedImages.value = [...storedImages.value!, newFileName]
