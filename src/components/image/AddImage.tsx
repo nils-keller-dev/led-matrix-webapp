@@ -9,6 +9,7 @@ import { ImageCropper } from './ImageCropper'
 export function AddImage() {
   const [modalOpen, setModalOpen] = useState(false)
   const imgSrc = useSignal<string>('')
+  const fileName = useSignal<string>('')
   const croppedImageFile = useSignal<File | undefined>(undefined)
 
   const onSelectFile = (e: Event) => {
@@ -23,6 +24,7 @@ export function AddImage() {
       target.value = ''
     })
 
+    fileName.value = files[0].name
     reader.readAsDataURL(files[0])
   }
 
@@ -33,15 +35,14 @@ export function AddImage() {
       return
     }
 
-    // TODO use original file name
-    const fileName = file.name.replace(/[^a-z0-9.]/gi, '_')
-    const renamedFile = new File([file], fileName, { type: file.type })
+    const newFileName = fileName.value.replace(/[^a-z0-9.]/gi, '_')
+    const renamedFile = new File([file], newFileName, { type: file.type })
 
     postImage(renamedFile).then(() => {
       // TODO only try to render image when this succeeds
     })
 
-    storedImages.value = [...storedImages.value!, fileName]
+    storedImages.value = [...storedImages.value!, newFileName]
 
     imgSrc.value = `image/${fileName}`
     setModalOpen(false)
