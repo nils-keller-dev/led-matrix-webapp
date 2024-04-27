@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'preact/hooks'
 import ReactCrop, { PixelCrop, type Crop } from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
 import { canvasPreview } from '../../utils/canvasPreview'
+import { useSignal } from '@preact/signals'
 
 type ImageCropperProps = {
   src: string
@@ -13,16 +14,30 @@ export function ImageCropper({ src, onChangeCrop }: ImageCropperProps) {
   const [completedCrop, setCompletedCrop] = useState<PixelCrop>()
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
   const imgRef = useRef<HTMLImageElement>(null)
+  const isCropping = useSignal(false)
 
-  const onImageLoad = () => {
-    setCrop({
-      unit: '%',
-      width: 100,
-      height: 100,
-      x: 0,
-      y: 0
-    })
+  const onDragEnd = () => {
+    isCropping.value = true
   }
+
+  useEffect(() => {
+    if (
+      isCropping.value &&
+      crop!.width + crop!.height === 0 &&
+      imgRef.current
+    ) {
+      const { width, height } = imgRef.current
+      const min = Math.min(width, height)
+
+      setCrop({
+        unit: 'px',
+        width: min,
+        height: min,
+        x: 0,
+        y: 0
+      })
+    }
+  }, [isCropping.value])
 
   useEffect(() => {
     if (
@@ -49,7 +64,9 @@ export function ImageCropper({ src, onChangeCrop }: ImageCropperProps) {
   }, [completedCrop])
 
   return (
-    <>
+    <div>
+      <canvas ref={previewCanvasRef} className="hidden" />
+
       <ReactCrop
         crop={crop}
         onChange={setCrop}
@@ -58,10 +75,11 @@ export function ImageCropper({ src, onChangeCrop }: ImageCropperProps) {
         minHeight={10}
         minWidth={10}
         aspect={1}
+        onDragEnd={onDragEnd}
+        keepSelection={true}
       >
-        <img ref={imgRef} src={src} onLoad={onImageLoad} />
+        <img ref={imgRef} src={src} />
       </ReactCrop>
-      <canvas ref={previewCanvasRef} className="hidden" />
-    </>
+    </div>
   )
 }
