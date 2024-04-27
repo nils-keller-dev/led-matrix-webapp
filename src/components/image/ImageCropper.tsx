@@ -23,7 +23,7 @@ export function ImageCropper({ src, onChangeCrop }: ImageCropperProps) {
   useEffect(() => {
     if (
       isCropping.value &&
-      crop!.width + crop!.height === 0 &&
+      crop!.width + crop!.height <= 20 &&
       imgRef.current
     ) {
       const { width, height } = imgRef.current
