@@ -1,10 +1,7 @@
-import { useSignal } from '@preact/signals'
-import { RotateCwSquare } from 'lucide-preact'
 import { useEffect, useRef, useState } from 'preact/hooks'
 import ReactCrop, { PixelCrop, type Crop } from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
 import { canvasPreview } from '../../utils/canvasPreview'
-import { IconButton } from '../IconButton'
 
 type ImageCropperProps = {
   src: string
@@ -14,7 +11,6 @@ type ImageCropperProps = {
 export function ImageCropper({ src, onChangeCrop }: ImageCropperProps) {
   const [crop, setCrop] = useState<Crop>()
   const [completedCrop, setCompletedCrop] = useState<PixelCrop>()
-  const rotation = useSignal(0)
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
   const imgRef = useRef<HTMLImageElement>(null)
 
@@ -35,12 +31,7 @@ export function ImageCropper({ src, onChangeCrop }: ImageCropperProps) {
       imgRef.current &&
       previewCanvasRef.current
     ) {
-      canvasPreview(
-        imgRef.current,
-        previewCanvasRef.current,
-        completedCrop,
-        rotation.value
-      )
+      canvasPreview(imgRef.current, previewCanvasRef.current, completedCrop)
 
       previewCanvasRef.current.toBlob(
         (blob) => {
@@ -55,11 +46,7 @@ export function ImageCropper({ src, onChangeCrop }: ImageCropperProps) {
         1
       )
     }
-  }, [completedCrop, rotation.value])
-
-  const onClickRotate = () => {
-    rotation.value = rotation.value + (90 % 360)
-  }
+  }, [completedCrop])
 
   return (
     <>
@@ -72,16 +59,8 @@ export function ImageCropper({ src, onChangeCrop }: ImageCropperProps) {
         minWidth={10}
         aspect={1}
       >
-        <img
-          ref={imgRef}
-          src={src}
-          onLoad={onImageLoad}
-          style={{ rotate: `${rotation.value}deg` }}
-        />
+        <img ref={imgRef} src={src} onLoad={onImageLoad} />
       </ReactCrop>
-      <IconButton className="mx-auto" onClick={onClickRotate}>
-        <RotateCwSquare />
-      </IconButton>
       <canvas ref={previewCanvasRef} className="hidden" />
     </>
   )

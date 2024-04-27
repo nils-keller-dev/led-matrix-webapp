@@ -84,7 +84,7 @@ export function AddImage() {
         <Plus />
       </div>
       <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-6">
           <ImageCropper src={imgSrc.value} onChangeCrop={onChangeCrop} />
           <div className="flex justify-between">
             <Button
