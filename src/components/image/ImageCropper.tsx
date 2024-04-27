@@ -78,7 +78,11 @@ export function ImageCropper({ src, onChangeCrop }: ImageCropperProps) {
         onDragEnd={onDragEnd}
         keepSelection={true}
       >
-        <img ref={imgRef} src={src} />
+        <img
+          ref={imgRef}
+          src={src}
+          className="outline outline-1 -outline-offset-1 outline-secondary"
+        />
       </ReactCrop>
     </div>
   )
