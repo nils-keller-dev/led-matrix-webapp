@@ -20,46 +20,62 @@ export function ImageCropper({ src, onChangeCrop }: ImageCropperProps) {
     isCropping.value = true
   }
 
-  useEffect(() => {
-    if (
-      isCropping.value &&
-      crop!.width + crop!.height <= 20 &&
-      imgRef.current
-    ) {
+  const onCompleteCrop = (crop: PixelCrop) => {
+    if (crop!.width + crop!.height <= 20 && imgRef.current) {
       const { width, height } = imgRef.current
       const min = Math.min(width, height)
 
-      setCrop({
+      const newCrop: PixelCrop = {
         unit: 'px',
         width: min,
         height: min,
         x: 0,
         y: 0
-      })
+      }
+
+      setCrop(newCrop)
+      setCompletedCrop(newCrop)
+    } else {
+      setCompletedCrop(crop)
     }
-  }, [isCropping.value])
+  }
+
+  const updatePreview = (crop: PixelCrop) => {
+    if (!imgRef.current || !previewCanvasRef.current) return
+
+    canvasPreview(imgRef.current, previewCanvasRef.current, crop)
+
+    previewCanvasRef.current.toBlob(
+      (blob) => {
+        if (blob) {
+          const file = new File([blob], 'crop.jpeg', {
+            type: 'image/jpeg'
+          })
+          onChangeCrop(file)
+        }
+      },
+      'image/jpeg',
+      1
+    )
+  }
+
+  const onLoad = () => {
+    if (!imgRef.current) return
+
+    const { width, height } = imgRef.current
+
+    updatePreview({
+      unit: 'px',
+      width,
+      height,
+      x: 0,
+      y: 0
+    })
+  }
 
   useEffect(() => {
-    if (
-      completedCrop?.width &&
-      completedCrop?.height &&
-      imgRef.current &&
-      previewCanvasRef.current
-    ) {
-      canvasPreview(imgRef.current, previewCanvasRef.current, completedCrop)
-
-      previewCanvasRef.current.toBlob(
-        (blob) => {
-          if (blob) {
-            const file = new File([blob], 'crop.jpeg', {
-              type: 'image/jpeg'
-            })
-            onChangeCrop(file)
-          }
-        },
-        'image/jpeg',
-        1
-      )
+    if (completedCrop?.width && completedCrop?.height) {
+      updatePreview(completedCrop)
     }
   }, [completedCrop])
 
@@ -71,7 +87,7 @@ export function ImageCropper({ src, onChangeCrop }: ImageCropperProps) {
         crop={crop}
         onChange={setCrop}
         className="outline-none"
-        onComplete={setCompletedCrop}
+        onComplete={onCompleteCrop}
         minHeight={10}
         minWidth={10}
         aspect={1}
@@ -81,6 +97,7 @@ export function ImageCropper({ src, onChangeCrop }: ImageCropperProps) {
         <img
           ref={imgRef}
           src={src}
+          onLoad={onLoad}
           className="outline outline-1 -outline-offset-1 outline-secondary"
         />
       </ReactCrop>
