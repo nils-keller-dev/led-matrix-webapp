@@ -1,5 +1,14 @@
 import { useSignal } from '@preact/signals'
-import { useEffect, useRef } from 'preact/hooks'
+import { useEffect, useRef, useCallback } from 'preact/hooks'
+import debounceFunction from 'debounce-fn'
+
+// function debounce(fn, wait) {
+//   let timeout
+//   return (...args) => {
+//     clearTimeout(timeout)
+//     timeout = setTimeout(() => fn.apply(this, args), wait)
+//   }
+// }
 
 type ColorInputProps = {
   initialValue: string
@@ -17,8 +26,18 @@ export function ColorInput({ initialValue, onChange }: ColorInputProps) {
     if (!color || color === currentColor.value) return
 
     currentColor.value = color
-    onChange?.(currentColor.value)
+    debouncedOnChange(currentColor.value)
   }
+
+  const debouncedOnChange = useCallback(
+    debounceFunction(
+      (color: string) => {
+        onChange?.(color)
+      },
+      { wait: 500 }
+    ),
+    []
+  )
 
   useEffect(() => {
     colorInput.current?.addEventListener('change', onColorChange)
