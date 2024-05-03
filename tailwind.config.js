@@ -9,7 +9,7 @@ export default {
       background: '#09090b'
     },
     fontFamily: {
-      abril: ['Abril Fatface', 'sans-serif']
+      blazeface: ['ohno-blazeface']
     }
   },
   plugins: [

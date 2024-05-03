@@ -78,7 +78,7 @@ export function Carousel({
               key={id}
             >
               <div className="size-full border border-secondary rounded-3xl flex items-center justify-center relative">
-                <span className="text-7xl font-abril">{title}</span>
+                <span className="text-7xl font-blazeface">{title}</span>
                 {hasConfiguration && (
                   <div
                     className="absolute h-full w-5/6 flex justify-center items-end pb-3"
