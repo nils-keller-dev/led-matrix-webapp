@@ -1,5 +1,7 @@
 import { useSignal } from '@preact/signals'
 import { ImageOff, LoaderCircle } from 'lucide-preact'
+import { useEffect, useRef } from 'preact/hooks'
+import { handleTapAndHold } from '../../utils/handleTapAndHold'
 
 type ImageItemSettingsProps = {
   image: string
@@ -16,13 +18,17 @@ export function ImageItem({
 }: ImageItemSettingsProps) {
   const isLoading = useSignal(true)
   const isError = useSignal(false)
+  const el = useRef<HTMLDivElement>(null)
 
-  const onContextMenu = (e: Event, image: string) => {
-    e.preventDefault()
-    if (window.confirm('Are you sure you want to delete this image?')) {
-      onDelete(image)
+  useEffect(() => {
+    if (el.current) {
+      handleTapAndHold(el.current, () => {
+        if (window.confirm('Are you sure you want to delete this image?')) {
+          onDelete(image)
+        }
+      })
     }
-  }
+  }, [el.current])
 
   const onLoad = () => {
     isLoading.value = false
@@ -37,7 +43,7 @@ export function ImageItem({
     <div
       className={`w-full aspect-square rounded-xl overflow-hidden relative outline ${isSelected ? 'outline-2 outline-primary -outline-offset-2' : 'outline-1 outline-secondary -outline-offset-1'}`}
       onClick={() => onSelect(image)}
-      onContextMenu={(e) => onContextMenu(e, image)}
+      ref={el}
     >
       {isLoading.value && (
         <div className="size-full flex justify-center items-center">
