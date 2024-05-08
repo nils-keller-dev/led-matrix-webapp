@@ -21,7 +21,7 @@ export function GlobalConfiguration({
       <div className="flex gap-3 flex-row">
         <SunDim class="text-muted-foreground shrink-0" />
         <Slider
-          min={0}
+          min={3}
           max={100}
           initialValue={brightness}
           onChange={updateBrightness}
