@@ -1,3 +1,5 @@
+import packageJson from '../../package.json'
+
 export function Header() {
   return (
     <header className="border-b border-b-secondary flex items-center justify-between pr-4">
@@ -6,7 +8,7 @@ export function Header() {
         <span>led-matrix-webapp</span>
       </div>
       <a href="/data" className="text-secondary">
-        v1.0.0
+        v{packageJson.version}
       </a>
     </header>
   )
