@@ -21,8 +21,8 @@ export function ImageList({ selected }: ImageListProps) {
         const newImage = storedImages.value?.[0]
 
         currentImage.value = newImage
-        postJson({ image: newImage }).then(() => {
-          storedData.value!.image = newImage
+        postJson({ image: { image: newImage } }).then(() => {
+          storedData.value!.image.image = newImage
         })
       }
     })
@@ -31,8 +31,8 @@ export function ImageList({ selected }: ImageListProps) {
   const updateImage = (image: string) => {
     currentImage.value = image
 
-    postJson({ image }).then(() => {
-      storedData.value!.image = image
+    postJson({ image: { image } }).then(() => {
+      storedData.value!.image.image = image
     })
   }
 

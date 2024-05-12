@@ -8,25 +8,25 @@ import { TextInput } from '../TextInput'
 type TextSettingsProps = {
   text: string
   vertical: boolean
-  textSpeed: number
+  speed: number
 }
 
 export function Text(initialValues: TextSettingsProps) {
-  const updateTextSpeed = (textSpeed: number) => {
-    postJson({ textSpeed }).then(() => {
-      data.value!.textSpeed = textSpeed
+  const updateSpeed = (speed: number) => {
+    postJson({ text: { speed } }).then(() => {
+      data.value!.text.speed = speed
     })
   }
 
   const updateText = (text: string) => {
-    postJson({ text }).then(() => {
-      data.value!.text = text
+    postJson({ text: { text } }).then(() => {
+      data.value!.text.text = text
     })
   }
 
-  const updateTextVertical = (vertical: boolean) => {
-    postJson({ vertical }).then(() => {
-      data.value!.vertical = vertical
+  const updateVertical = (vertical: boolean) => {
+    postJson({ text: { vertical } }).then(() => {
+      data.value!.text.vertical = vertical
     })
   }
 
@@ -37,14 +37,14 @@ export function Text(initialValues: TextSettingsProps) {
         <Switch
           initialValue={initialValues.vertical}
           id="vertical-switch"
-          onChange={updateTextVertical}
+          onChange={updateVertical}
         />
       </InputWrapper>
       <InputWrapper title="Text speed">
         <InputSpinner
           numberSteps={8}
-          initialValue={initialValues.textSpeed}
-          onChange={updateTextSpeed}
+          initialValue={initialValues.speed}
+          onChange={updateSpeed}
         />
       </InputWrapper>
     </div>

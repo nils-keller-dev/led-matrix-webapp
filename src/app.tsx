@@ -32,15 +32,15 @@ export default function App() {
     currentCarouselIndex.value = index
 
     if (initial) return
-    postJson({ mode: Mode[CAROUSEL_ITEMS[index].id] })
+    postJson({ global: { mode: Mode[CAROUSEL_ITEMS[index].id] } })
   }
 
   const updateBrightness = (brightness: number) => {
-    postJson({ brightness })
+    postJson({ global: { brightness } })
   }
 
   const updateColor = (color: string) => {
-    postJson({ color: hexToRgb(color) })
+    postJson({ global: { color: hexToRgb(color) } })
   }
 
   useEffect(() => {
@@ -61,13 +61,13 @@ export default function App() {
           <div className="flex flex-col gap-10">
             <Carousel
               slides={CAROUSEL_ITEMS}
-              initialValue={Mode[data.value.mode as keyof typeof Mode]}
+              initialValue={Mode[data.value.global.mode as keyof typeof Mode]}
               onClickSettings={onClickCarouselSettings}
               onChange={onChangeCarouselIndex}
             />
             <GlobalConfiguration
-              brightness={data.value.brightness!}
-              color={data.value.color!}
+              brightness={data.value.global.brightness!}
+              color={data.value.global.color!}
               updateBrightness={updateBrightness}
               updateColor={updateColor}
             />
@@ -79,13 +79,13 @@ export default function App() {
             {currentCarouselIndex.value >= 0 && (
               <>
                 {currentCarouselIndex.value === 2 && (
-                  <Image image={data.value.image!} />
+                  <Image image={data.value.image.image!} />
                 )}
                 {currentCarouselIndex.value === 3 && (
                   <Text
-                    text={data.value.text!}
-                    vertical={data.value.vertical!}
-                    textSpeed={data.value.textSpeed!}
+                    text={data.value.text.text!}
+                    vertical={data.value.text.vertical!}
+                    speed={data.value.text.speed!}
                   />
                 )}
               </>
