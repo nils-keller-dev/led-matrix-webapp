@@ -2,14 +2,6 @@ import { useSignal } from '@preact/signals'
 import { useEffect, useRef, useCallback } from 'preact/hooks'
 import debounceFunction from 'debounce-fn'
 
-// function debounce(fn, wait) {
-//   let timeout
-//   return (...args) => {
-//     clearTimeout(timeout)
-//     timeout = setTimeout(() => fn.apply(this, args), wait)
-//   }
-// }
-
 type ColorInputProps = {
   initialValue: string
   onChange?: (color: string) => void
