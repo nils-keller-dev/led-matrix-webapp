@@ -1,19 +1,19 @@
 import { useSignal } from '@preact/signals'
 import { LoaderCircle } from 'lucide-preact'
 import { useEffect } from 'preact/hooks'
-import { getData } from './api/data.get'
 import { getImages } from './api/images.get'
-import { postJson } from './api/json.post'
+import { getState } from './api/state.get'
+import { patchState } from './api/state.patch'
 import { Carousel } from './components/Carousel'
 import { Drawer } from './components/Drawer'
 import { GlobalConfiguration } from './components/GlobalConfiguration'
 import { Header } from './components/Header'
+import { Clock } from './components/settingGroup/Clock'
 import { Image } from './components/settingGroup/Image'
 import { Text } from './components/settingGroup/Text'
 import { CAROUSEL_ITEMS } from './constants/CarouselItems'
 import { Mode } from './constants/enums/Mode'
-import { data, images } from './store/store'
-import { hexToRgb } from './utils/ColorConversion'
+import { images, state } from './store/store'
 
 export default function App() {
   const currentCarouselIndex = useSignal(-1)
@@ -32,20 +32,16 @@ export default function App() {
     currentCarouselIndex.value = index
 
     if (initial) return
-    postJson({ global: { mode: Mode[CAROUSEL_ITEMS[index].id] } })
+    patchState({ global: { mode: Mode[CAROUSEL_ITEMS[index].id] } })
   }
 
   const updateBrightness = (brightness: number) => {
-    postJson({ global: { brightness } })
-  }
-
-  const updateColor = (color: string) => {
-    postJson({ global: { color: hexToRgb(color) } })
+    patchState({ global: { brightness } })
   }
 
   useEffect(() => {
-    getData().then((newData) => {
-      data.value = newData
+    getState().then((newState) => {
+      state.value = newState
     })
 
     getImages().then((newImages) => {
@@ -55,21 +51,19 @@ export default function App() {
 
   return (
     <>
-      {data.value && images.value ? (
+      {state.value && images.value ? (
         <div className="flex flex-col justify-between h-full">
           <Header />
           <div className="flex flex-col gap-10">
             <Carousel
               slides={CAROUSEL_ITEMS}
-              initialValue={Mode[data.value.global.mode as keyof typeof Mode]}
+              initialValue={Mode[state.value.global.mode as keyof typeof Mode]}
               onClickSettings={onClickCarouselSettings}
               onChange={onChangeCarouselIndex}
             />
             <GlobalConfiguration
-              brightness={data.value.global.brightness!}
-              color={data.value.global.color!}
+              brightness={state.value.global.brightness!}
               updateBrightness={updateBrightness}
-              updateColor={updateColor}
             />
           </div>
           <Drawer
@@ -78,14 +72,18 @@ export default function App() {
           >
             {currentCarouselIndex.value >= 0 && (
               <>
+                {currentCarouselIndex.value === 0 && (
+                  <Clock color={state.value.clock.color!} />
+                )}
                 {currentCarouselIndex.value === 2 && (
-                  <Image image={data.value.image.image!} />
+                  <Image image={state.value.image.image!} />
                 )}
                 {currentCarouselIndex.value === 3 && (
                   <Text
-                    text={data.value.text.text!}
-                    vertical={data.value.text.vertical!}
-                    speed={data.value.text.speed!}
+                    text={state.value.text.text!}
+                    vertical={state.value.text.vertical!}
+                    speed={state.value.text.speed!}
+                    color={state.value.text.color!}
                   />
                 )}
               </>

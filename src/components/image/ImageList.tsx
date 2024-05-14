@@ -1,7 +1,7 @@
 import { useSignal } from '@preact/signals'
 import { deleteImage } from '../../api/image.delete'
-import { postJson } from '../../api/json.post'
-import { data as storedData, images as storedImages } from '../../store/store'
+import { patchState } from '../../api/state.patch'
+import { images as storedImages, state as storedState } from '../../store/store'
 import { ImageItem } from '../image/ImageItem'
 import { AddImage } from './AddImage'
 
@@ -21,8 +21,8 @@ export function ImageList({ selected }: ImageListProps) {
         const newImage = storedImages.value?.[0]
 
         currentImage.value = newImage
-        postJson({ image: { image: newImage } }).then(() => {
-          storedData.value!.image.image = newImage
+        patchState({ image: { image: newImage } }).then(() => {
+          storedState.value!.image.image = newImage
         })
       }
     })
@@ -31,8 +31,8 @@ export function ImageList({ selected }: ImageListProps) {
   const updateImage = (image: string) => {
     currentImage.value = image
 
-    postJson({ image: { image } }).then(() => {
-      storedData.value!.image.image = image
+    patchState({ image: { image } }).then(() => {
+      storedState.value!.image.image = image
     })
   }
 

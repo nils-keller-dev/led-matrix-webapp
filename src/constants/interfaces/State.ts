@@ -1,7 +1,6 @@
 interface Global {
   mode?: string
   brightness?: number
-  color?: number[]
 }
 
 interface Text {
@@ -9,14 +8,20 @@ interface Text {
   vertical?: boolean
   speed?: number
   font?: string
+  color?: number[]
 }
 
 interface Image {
   image?: string
 }
 
-export interface Data {
+interface Clock {
+  color?: number[]
+}
+
+export interface State {
   global: Global
   text: Text
   image: Image
+  clock: Clock
 }

@@ -7,7 +7,7 @@ export function Header() {
         <img src="/logo.svg" alt="logo" className="size-14" />
         <span>led-matrix-webapp</span>
       </div>
-      <a href="/data" className="text-secondary">
+      <a href="/api/state" className="text-secondary">
         v{packageJson.version}
       </a>
     </header>

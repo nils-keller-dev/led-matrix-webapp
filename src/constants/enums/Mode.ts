@@ -1,7 +1,7 @@
 export enum Mode {
-  CLOCK,
-  MUSIC,
-  IMAGE,
-  TEXT,
-  IDLE
+  clock,
+  music,
+  image,
+  text,
+  idle
 }

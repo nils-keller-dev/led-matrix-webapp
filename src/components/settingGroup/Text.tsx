@@ -1,5 +1,7 @@
-import { postJson } from '../../api/json.post'
-import { data } from '../../store/store'
+import { patchState } from '../../api/state.patch'
+import { state } from '../../store/store'
+import { hexToRgb, rgbToHex } from '../../utils/ColorConversion'
+import { ColorInput } from '../ColorInput'
 import { InputSpinner } from '../InputSpinner'
 import { InputWrapper } from '../InputWrapper'
 import { Switch } from '../Switch'
@@ -9,24 +11,32 @@ type TextSettingsProps = {
   text: string
   vertical: boolean
   speed: number
+  color: number[]
 }
 
 export function Text(initialValues: TextSettingsProps) {
   const updateSpeed = (speed: number) => {
-    postJson({ text: { speed } }).then(() => {
-      data.value!.text.speed = speed
+    patchState({ text: { speed } }).then(() => {
+      state.value!.text.speed = speed
     })
   }
 
   const updateText = (text: string) => {
-    postJson({ text: { text } }).then(() => {
-      data.value!.text.text = text
+    patchState({ text: { text } }).then(() => {
+      state.value!.text.text = text
     })
   }
 
   const updateVertical = (vertical: boolean) => {
-    postJson({ text: { vertical } }).then(() => {
-      data.value!.text.vertical = vertical
+    patchState({ text: { vertical } }).then(() => {
+      state.value!.text.vertical = vertical
+    })
+  }
+
+  const updateColor = (color: string) => {
+    const rgbColor = hexToRgb(color)
+    patchState({ text: { color: rgbColor } }).then(() => {
+      state.value!.text.color = rgbColor
     })
   }
 
@@ -47,6 +57,10 @@ export function Text(initialValues: TextSettingsProps) {
           onChange={updateSpeed}
         />
       </InputWrapper>
+      <ColorInput
+        initialValue={rgbToHex(initialValues.color)}
+        onChange={updateColor}
+      />
     </div>
   )
 }

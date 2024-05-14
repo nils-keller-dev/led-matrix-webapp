@@ -1,6 +1,6 @@
 import { signal } from '@preact/signals'
-import { Data } from '../constants/interfaces/Data'
+import { State } from '../constants/interfaces/State'
 
-export const data = signal<Data | null>(null)
+export const state = signal<State | null>(null)
 
 export const images = signal<string[] | null>(null)

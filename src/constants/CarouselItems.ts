@@ -2,27 +2,27 @@ import { Mode } from './enums/Mode'
 
 export const CAROUSEL_ITEMS = [
   {
-    id: Mode.CLOCK,
+    id: Mode.clock,
     title: 'Clock',
-    hasConfiguration: false
+    hasConfiguration: true
   },
   {
-    id: Mode.MUSIC,
+    id: Mode.music,
     title: 'Music',
     hasConfiguration: false
   },
   {
-    id: Mode.IMAGE,
+    id: Mode.image,
     title: 'Image',
     hasConfiguration: true
   },
   {
-    id: Mode.TEXT,
+    id: Mode.text,
     title: 'Text',
     hasConfiguration: true
   },
   {
-    id: Mode.IDLE,
+    id: Mode.idle,
     title: 'Idle',
     hasConfiguration: false
   }
