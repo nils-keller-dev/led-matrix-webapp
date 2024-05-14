@@ -16,11 +16,9 @@ export function Clock(initialValues: ClockSettingsProps) {
   }
 
   return (
-    <div className="flex flex-col gap-6">
-      <ColorInput
-        initialValue={rgbToHex(initialValues.color)}
-        onChange={updateColor}
-      />
-    </div>
+    <ColorInput
+      initialValue={rgbToHex(initialValues.color)}
+      onChange={updateColor}
+    />
   )
 }
