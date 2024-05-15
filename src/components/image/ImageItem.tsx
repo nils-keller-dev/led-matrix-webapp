@@ -57,7 +57,7 @@ export function ImageItem({
       )}
       <img
         alt={image}
-        src={`image/${image}`}
+        src={`api/image/${image}`}
         className={`size-full object-contain ${isLoading.value ? 'opacity-0' : 'opacity-100'}`}
         onLoad={onLoad}
         onError={onError}

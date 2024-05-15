@@ -58,7 +58,7 @@ export function AddImage() {
 
     storedImages.value = [...storedImages.value!, newFileName]
 
-    imgSrc.value = `image/${fileName}`
+    imgSrc.value = `api/image/${fileName}`
     setModalOpen(false)
   }
 
