@@ -2,14 +2,12 @@ import { patchState } from '../../api/state.patch'
 import { state } from '../../store/store'
 import { hexToRgb, rgbToHex } from '../../utils/ColorConversion'
 import { ColorInput } from '../ColorInput'
-import { InputSpinner } from '../InputSpinner'
 import { InputWrapper } from '../InputWrapper'
-import { Switch } from '../Switch'
-import { TextInput } from '../TextInput'
+import { Slider } from '../Slider'
+import { TextArea } from '../TextArea'
 
 type TextSettingsProps = {
   text: string
-  vertical: boolean
   speed: number
   color: number[]
 }
@@ -27,12 +25,6 @@ export function Text(initialValues: TextSettingsProps) {
     })
   }
 
-  const updateVertical = (vertical: boolean) => {
-    patchState({ text: { vertical } }).then(() => {
-      state.value!.text.vertical = vertical
-    })
-  }
-
   const updateColor = (color: string) => {
     const rgbColor = hexToRgb(color)
     patchState({ text: { color: rgbColor } }).then(() => {
@@ -41,21 +33,22 @@ export function Text(initialValues: TextSettingsProps) {
   }
 
   return (
-    <div className="flex flex-col gap-6">
-      <TextInput initialValue={initialValues.text} onChange={updateText} />
-      <InputWrapper title="Vertical text" htmlFor="vertical-switch">
-        <Switch
-          initialValue={initialValues.vertical}
-          id="vertical-switch"
-          onChange={updateVertical}
-        />
+    <div className="flex flex-col gap-5">
+      <TextArea initialValue={initialValues.text} onChange={updateText} />
+      <InputWrapper title="Size">
+        <div className="w-[220px]">
+          <Slider min={0} max={7} initialValue={6} onChange={updateSpeed} />
+        </div>
       </InputWrapper>
-      <InputWrapper title="Text speed">
-        <InputSpinner
-          numberSteps={8}
-          initialValue={initialValues.speed}
-          onChange={updateSpeed}
-        />
+      <InputWrapper title="Speed">
+        <div className="w-[220px]">
+          <Slider
+            min={0}
+            max={7}
+            initialValue={initialValues.speed}
+            onChange={updateSpeed}
+          />
+        </div>
       </InputWrapper>
       <ColorInput
         initialValue={rgbToHex(initialValues.color)}

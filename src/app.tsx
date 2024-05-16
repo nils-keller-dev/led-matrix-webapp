@@ -81,7 +81,6 @@ export default function App() {
                 {currentCarouselIndex.value === 3 && (
                   <Text
                     text={state.value.text.text!}
-                    vertical={state.value.text.vertical!}
                     speed={state.value.text.speed!}
                     color={state.value.text.color!}
                   />
