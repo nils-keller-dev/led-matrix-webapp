@@ -1,12 +1,15 @@
+import { TextAlign } from '../enums/TextAlign'
+
 interface Global {
   mode?: string
   brightness?: number
 }
 
 interface Text {
+  align?: TextAlign
   text?: string
-  speed?: number
   size?: number
+  speed?: number
   color?: number[]
 }
 

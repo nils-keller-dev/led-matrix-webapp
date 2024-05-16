@@ -1,19 +1,30 @@
+import { TextAlign } from '../../constants/enums/TextAlign'
 import { patchState } from '../../api/state.patch'
 import { state } from '../../store/store'
 import { hexToRgb, rgbToHex } from '../../utils/ColorConversion'
 import { ColorInput } from '../ColorInput'
 import { InputWrapper } from '../InputWrapper'
+import { RadioGroup } from '../RadioGroup'
 import { Slider } from '../Slider'
 import { TextArea } from '../TextArea'
+import { AlignLeft, AlignCenter, AlignJustify } from 'lucide-preact'
 
 type TextSettingsProps = {
+  align: TextAlign
   text: string
-  speed: number
   size: number
+  speed: number
   color: number[]
 }
 
 export function Text(initialValues: TextSettingsProps) {
+  const updateAlign = (align: string) => {
+    const alignValue = TextAlign[align as keyof typeof TextAlign]
+    patchState({ text: { align: alignValue } }).then(() => {
+      state.value!.text.align = alignValue
+    })
+  }
+
   const updateText = (text: string) => {
     patchState({ text: { text } }).then(() => {
       state.value!.text.text = text
@@ -41,6 +52,14 @@ export function Text(initialValues: TextSettingsProps) {
 
   return (
     <div className="flex flex-col gap-5">
+      <div className="flex justify-center">
+        <RadioGroup
+          icons={[AlignLeft, AlignCenter, AlignJustify]}
+          values={Object.values(TextAlign)}
+          selected={initialValues.align}
+          onChange={updateAlign}
+        />
+      </div>
       <TextArea initialValue={initialValues.text} onChange={updateText} />
       <InputWrapper title="Size">
         <div className="w-[220px]">
