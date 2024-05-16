@@ -6,7 +6,7 @@ interface Global {
 interface Text {
   text?: string
   speed?: number
-  font?: string
+  size?: number
   color?: number[]
 }
 

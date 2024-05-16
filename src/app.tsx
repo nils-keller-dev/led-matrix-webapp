@@ -82,6 +82,7 @@ export default function App() {
                   <Text
                     text={state.value.text.text!}
                     speed={state.value.text.speed!}
+                    size={state.value.text.size!}
                     color={state.value.text.color!}
                   />
                 )}

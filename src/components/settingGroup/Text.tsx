@@ -9,19 +9,26 @@ import { TextArea } from '../TextArea'
 type TextSettingsProps = {
   text: string
   speed: number
+  size: number
   color: number[]
 }
 
 export function Text(initialValues: TextSettingsProps) {
+  const updateText = (text: string) => {
+    patchState({ text: { text } }).then(() => {
+      state.value!.text.text = text
+    })
+  }
+
   const updateSpeed = (speed: number) => {
     patchState({ text: { speed } }).then(() => {
       state.value!.text.speed = speed
     })
   }
 
-  const updateText = (text: string) => {
-    patchState({ text: { text } }).then(() => {
-      state.value!.text.text = text
+  const updateSize = (size: number) => {
+    patchState({ text: { size } }).then(() => {
+      state.value!.text.size = size
     })
   }
 
@@ -37,7 +44,12 @@ export function Text(initialValues: TextSettingsProps) {
       <TextArea initialValue={initialValues.text} onChange={updateText} />
       <InputWrapper title="Size">
         <div className="w-[220px]">
-          <Slider min={0} max={7} initialValue={6} onChange={updateSpeed} />
+          <Slider
+            min={0}
+            max={7}
+            initialValue={initialValues.size}
+            onChange={updateSize}
+          />
         </div>
       </InputWrapper>
       <InputWrapper title="Speed">
