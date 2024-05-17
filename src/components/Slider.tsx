@@ -29,13 +29,13 @@ export function Slider({ min, max, initialValue = 0, onChange }: SliderProps) {
     event.stopPropagation()
 
     handleDrag(event)
-    sliderRef.current?.addEventListener('pointermove', handleDrag)
-    sliderRef.current?.addEventListener('pointerup', stopDrag)
+    addEventListener('pointermove', handleDrag)
+    addEventListener('pointerup', stopDrag)
   }
 
   const stopDrag = () => {
-    sliderRef.current?.removeEventListener('pointermove', handleDrag)
-    sliderRef.current?.removeEventListener('pointerup', stopDrag)
+    removeEventListener('pointermove', handleDrag)
+    removeEventListener('pointerup', stopDrag)
 
     if (value.value !== lastReportedValue.current) {
       onChange(value.value)
