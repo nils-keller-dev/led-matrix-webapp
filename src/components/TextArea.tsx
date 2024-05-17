@@ -14,7 +14,7 @@ export function TextArea({
   const value = useSignal(initialValue)
 
   const handleChange = (event: Event) => {
-    const target = event.target as HTMLParagraphElement
+    const target = event.target as HTMLTextAreaElement
     value.value = target.textContent || ''
     onChange(value.value)
   }
@@ -23,19 +23,22 @@ export function TextArea({
     if (event.key === 'Enter') {
       event.preventDefault()
       event.stopPropagation()
-      ;(event.target as HTMLParagraphElement).blur()
+      ;(event.target as HTMLTextAreaElement).blur()
     }
   }
 
   return (
-    <p
-      contentEditable
+    <textarea
       placeholder={placeholder}
-      className="bg-background text-primary w-full max-h-[130px] border border-secondary rounded-md outline-none py-3 px-4 overflow-auto empty:before:content-[attr(placeholder)] before:text-muted-foreground"
+      enterkeyhint="send"
+      className="bg-background text-primary resize-none w-full h-[130px] border border-secondary rounded-md outline-none py-3 px-4"
       onBlur={handleChange}
       onKeyDown={onKeyDown}
+      onPointerMove={(event) => {
+        event.stopPropagation()
+      }}
     >
       {value}
-    </p>
+    </textarea>
   )
 }
