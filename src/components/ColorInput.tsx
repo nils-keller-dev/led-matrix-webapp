@@ -36,10 +36,6 @@ export function ColorInput({ initialValue, onChange }: ColorInputProps) {
   )
 
   useEffect(() => {
-    colorInput.current?.addEventListener('change', onColorChange)
-  }, [])
-
-  useEffect(() => {
     fetch(
       `https://www.thecolorapi.com/id?hex=${colorValue.value.replace('#', '')}`
     )
@@ -61,6 +57,7 @@ export function ColorInput({ initialValue, onChange }: ColorInputProps) {
         type="color"
         value={colorValue.value}
         className="opacity-0 size-0"
+        onChange={onColorChange}
       />
       {colorName.value ? null : (
         <Skeleton className="w-[100px] h-[20px] ml-3" />
