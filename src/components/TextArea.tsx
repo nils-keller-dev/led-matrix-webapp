@@ -1,11 +1,16 @@
 import { useSignal } from '@preact/signals'
 
 type TextAreaProps = {
+  placeholder?: string
   initialValue: string
   onChange: (value: string) => void
 }
 
-export function TextArea({ initialValue, onChange }: TextAreaProps) {
+export function TextArea({
+  placeholder,
+  initialValue,
+  onChange
+}: TextAreaProps) {
   const value = useSignal(initialValue)
 
   const handleChange = (event: Event) => {
@@ -25,7 +30,8 @@ export function TextArea({ initialValue, onChange }: TextAreaProps) {
   return (
     <p
       contentEditable
-      className="bg-background text-primary w-full max-h-[130px] h-fit border border-secondary rounded-md outline-none py-3 px-4 overflow-auto"
+      placeholder={placeholder}
+      className="bg-background text-primary w-full max-h-[130px] border border-secondary rounded-md outline-none py-3 px-4 overflow-auto empty:before:content-[attr(placeholder)] before:text-muted-foreground"
       onBlur={handleChange}
       onKeyDown={onKeyDown}
     >

@@ -60,7 +60,11 @@ export function Text(initialValues: TextSettingsProps) {
           onChange={updateAlign}
         />
       </div>
-      <TextArea initialValue={initialValues.text} onChange={updateText} />
+      <TextArea
+        placeholder="Enter your text here"
+        initialValue={initialValues.text}
+        onChange={updateText}
+      />
       <InputWrapper title="Size">
         <div className="w-[220px]">
           <Slider
