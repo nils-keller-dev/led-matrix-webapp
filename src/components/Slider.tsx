@@ -5,7 +5,7 @@ type SliderProps = {
   min: number
   max: number
   initialValue?: number
-  onChange?: (value: number) => void
+  onChange: (value: number) => void
 }
 
 export function Slider({ min, max, initialValue = 0, onChange }: SliderProps) {
@@ -13,12 +13,11 @@ export function Slider({ min, max, initialValue = 0, onChange }: SliderProps) {
   const sliderRef = useRef<HTMLSpanElement>(null)
   const lastReportedValue = useRef(initialValue)
 
-  const handleDrag = (e: MouseEvent | TouchEvent) => {
+  const handleDrag = (e: PointerEvent) => {
     if (!sliderRef.current) return
 
     const rect = sliderRef.current.getBoundingClientRect()
-    const x =
-      (e instanceof MouseEvent ? e.clientX : e.touches[0].clientX) - rect.left
+    const x = e.clientX - rect.left
     const newValue = Math.round(
       Math.min(max, Math.max(min, (x / rect.width) * (max - min) + min))
     )
@@ -26,24 +25,19 @@ export function Slider({ min, max, initialValue = 0, onChange }: SliderProps) {
     value.value = newValue
   }
 
-  const startDrag = (e: MouseEvent | TouchEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
+  const startDrag = (event: PointerEvent) => {
+    event.stopPropagation()
 
-    handleDrag(e)
-    addEventListener('mousemove', handleDrag)
-    addEventListener('touchmove', handleDrag)
-    addEventListener('mouseup', stopDrag)
-    addEventListener('touchend', stopDrag)
+    handleDrag(event)
+    sliderRef.current?.addEventListener('pointermove', handleDrag)
+    sliderRef.current?.addEventListener('pointerup', stopDrag)
   }
 
   const stopDrag = () => {
-    removeEventListener('mousemove', handleDrag)
-    removeEventListener('touchmove', handleDrag)
-    removeEventListener('mouseup', stopDrag)
-    removeEventListener('touchend', stopDrag)
+    sliderRef.current?.removeEventListener('pointermove', handleDrag)
+    sliderRef.current?.removeEventListener('pointerup', stopDrag)
 
-    if (value.value !== lastReportedValue.current && onChange) {
+    if (value.value !== lastReportedValue.current) {
       onChange(value.value)
       lastReportedValue.current = value.value
     }
@@ -55,9 +49,8 @@ export function Slider({ min, max, initialValue = 0, onChange }: SliderProps) {
   return (
     <span
       ref={sliderRef}
-      className="relative flex items-center w-full"
-      onMouseDown={startDrag}
-      onTouchStart={startDrag}
+      className="relative flex items-center w-full touch-none"
+      onPointerDown={startDrag}
     >
       <span className="relative h-2 w-full overflow-hidden rounded-full bg-secondary">
         <span
