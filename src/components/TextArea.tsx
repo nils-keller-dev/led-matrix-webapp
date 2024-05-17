@@ -15,7 +15,7 @@ export function TextArea({
 
   const handleChange = (event: Event) => {
     const target = event.target as HTMLTextAreaElement
-    value.value = target.textContent || ''
+    value.value = target.value
     onChange(value.value)
   }
 
