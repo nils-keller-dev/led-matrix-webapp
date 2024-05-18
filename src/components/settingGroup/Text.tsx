@@ -68,8 +68,8 @@ export function Text(initialValues: TextSettingsProps) {
       <InputWrapper title="Size">
         <div className="w-[220px]">
           <Slider
-            min={0}
-            max={7}
+            min={1}
+            max={5}
             initialValue={initialValues.size}
             onChange={updateSize}
           />
@@ -79,7 +79,7 @@ export function Text(initialValues: TextSettingsProps) {
         <div className="w-[220px]">
           <Slider
             min={0}
-            max={7}
+            max={10}
             initialValue={initialValues.speed}
             onChange={updateSpeed}
           />
