@@ -29,6 +29,8 @@ export function ImageList({ selected }: ImageListProps) {
   }
 
   const updateImage = (image: string) => {
+    if (image === currentImage.value) return
+
     currentImage.value = image
 
     patchState({ image: { image } }).then(() => {
