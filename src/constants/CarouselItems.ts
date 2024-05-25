@@ -9,7 +9,7 @@ export const CAROUSEL_ITEMS = [
   {
     id: Mode.music,
     title: 'Music',
-    hasConfiguration: false
+    hasConfiguration: true
   },
   {
     id: Mode.image,

@@ -10,6 +10,7 @@ import { GlobalConfiguration } from './components/GlobalConfiguration'
 import { Header } from './components/Header'
 import { Clock } from './components/settingGroup/Clock'
 import { Image } from './components/settingGroup/Image'
+import { Music } from './components/settingGroup/Music'
 import { Text } from './components/settingGroup/Text'
 import { CAROUSEL_ITEMS } from './constants/CarouselItems'
 import { Mode } from './constants/enums/Mode'
@@ -74,6 +75,9 @@ export default function App() {
               <>
                 {currentCarouselIndex.value === 0 && (
                   <Clock color={state.value.clock.color!} />
+                )}
+                {currentCarouselIndex.value === 1 && (
+                  <Music fullscreen={state.value.music.fullscreen!} />
                 )}
                 {currentCarouselIndex.value === 2 && (
                   <Image image={state.value.image.image!} />

@@ -5,6 +5,18 @@ interface Global {
   brightness?: number
 }
 
+interface Clock {
+  color?: number[]
+}
+
+interface Music {
+  fullscreen?: boolean
+}
+
+interface Image {
+  image?: string
+}
+
 interface Text {
   align?: TextAlign
   text?: string
@@ -13,17 +25,10 @@ interface Text {
   color?: number[]
 }
 
-interface Image {
-  image?: string
-}
-
-interface Clock {
-  color?: number[]
-}
-
 export interface State {
   global: Global
-  text: Text
-  image: Image
   clock: Clock
+  music: Music
+  image: Image
+  text: Text
 }
