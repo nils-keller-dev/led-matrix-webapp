@@ -15,8 +15,9 @@ export function Music(initialValues: MusicSettingsProps) {
   }
 
   return (
-    <InputWrapper title="Fullscreen">
+    <InputWrapper title="Fullscreen" htmlFor="fullscreen">
       <Switch
+        id="fullscreen"
         initialValue={initialValues.fullscreen}
         onChange={updateFullscreen}
       />
