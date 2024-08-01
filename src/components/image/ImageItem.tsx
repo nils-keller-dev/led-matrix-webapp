@@ -28,7 +28,7 @@ export function ImageItem({
         }
       })
     }
-  }, [el.current])
+  }, [])
 
   const onLoad = () => {
     isLoading.value = false
@@ -42,7 +42,9 @@ export function ImageItem({
   return (
     <div
       className={`w-full aspect-square rounded-xl overflow-hidden relative outline ${isSelected ? 'outline-2 outline-primary -outline-offset-2' : 'outline-1 outline-secondary -outline-offset-1'}`}
+      style="-webkit-touch-callout: none"
       onClick={() => onSelect(image)}
+      onContextMenu={(e) => e.preventDefault()}
       ref={el}
     >
       {isLoading.value && (
