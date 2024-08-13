@@ -14,6 +14,7 @@ import { Music } from './components/settingGroup/Music'
 import { Text } from './components/settingGroup/Text'
 import { CAROUSEL_ITEMS } from './constants/CarouselItems'
 import { Mode } from './constants/enums/Mode'
+import { usePreventBackNavigation } from './hooks/usePreventBackNavigation'
 import { images, state } from './store/store'
 
 export default function App() {
@@ -49,6 +50,10 @@ export default function App() {
       images.value = newImages
     })
   }, [])
+
+  usePreventBackNavigation(() => {
+    isDrawerOpen.value = false
+  })
 
   return (
     <>
