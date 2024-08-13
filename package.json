@@ -15,25 +15,28 @@
     "@preact/signals": "^1.3.0",
     "@radix-ui/react-dialog": "^1.1.1",
     "debounce-fn": "^6.0.0",
-    "embla-carousel-react": "^8.1.7",
-    "lucide-preact": "^0.418.0",
-    "preact": "^10.23.1",
+    "embla-carousel-react": "^8.1.8",
+    "lucide-preact": "^0.427.0",
+    "preact": "^10.23.2",
     "react-image-crop": "^11.0.6",
     "vaul": "^0.9.1"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/js": "^9.9.0",
     "@preact/preset-vite": "^2.9.0",
-    "@typescript-eslint/eslint-plugin": "^7.18.0",
-    "@typescript-eslint/parser": "^7.18.0",
-    "autoprefixer": "^10.4.19",
-    "eslint": "^8.57.0",
+    "@typescript-eslint/eslint-plugin": "^8.1.0",
+    "@typescript-eslint/parser": "^8.1.0",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.9.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.35.0",
-    "postcss": "^8.4.40",
+    "globals": "^15.9.0",
+    "postcss": "^8.4.41",
     "prettier": "^3.3.3",
-    "tailwindcss": "^3.4.7",
+    "tailwindcss": "^3.4.9",
     "typescript": "^5.5.4",
-    "vite": "^5.3.5"
+    "vite": "^5.4.0"
   }
 }
