@@ -16,7 +16,7 @@
     "@radix-ui/react-dialog": "^1.1.1",
     "debounce-fn": "^6.0.0",
     "embla-carousel-react": "^8.1.8",
-    "lucide-preact": "^0.427.0",
+    "lucide-preact": "^0.428.0",
     "preact": "^10.23.2",
     "react-image-crop": "^11.0.6",
     "vaul": "^0.9.1"
@@ -35,8 +35,8 @@
     "globals": "^15.9.0",
     "postcss": "^8.4.41",
     "prettier": "^3.3.3",
-    "tailwindcss": "^3.4.9",
+    "tailwindcss": "^3.4.10",
     "typescript": "^5.5.4",
-    "vite": "^5.4.0"
+    "vite": "^5.4.1"
   }
 }
