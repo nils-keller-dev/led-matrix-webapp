@@ -21,7 +21,4 @@ It communicates directly with the raspberry pi and the proprietary api on there.
 
 A few impressions
 
-<img src="https://i.ibb.co/bgcn4fm/led-matrix-webapp-1.png" alt="Screenshot 1" width="200"/>
-<img src="https://i.ibb.co/vZjZw0V/led-matrix-webapp-2.png" alt="Screenshot 1" width="200"/>
-<img src="https://i.ibb.co/sRyTNkc/led-matrix-webapp-3.png" alt="Screenshot 1" width="200"/>
-<img src="https://i.ibb.co/nmHbHRw/led-matrix-webapp-4.png" alt="Screenshot 1" width="200"/>
+<img src="https://i.ibb.co/bgcn4fm/led-matrix-webapp-1.png" alt="Screenshot 1" width="200"/> <img src="https://i.ibb.co/vZjZw0V/led-matrix-webapp-2.png" alt="Screenshot 1" width="200"/> <img src="https://i.ibb.co/sRyTNkc/led-matrix-webapp-3.png" alt="Screenshot 1" width="200"/> <img src="https://i.ibb.co/nmHbHRw/led-matrix-webapp-4.png" alt="Screenshot 1" width="200"/>
