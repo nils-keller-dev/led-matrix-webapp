@@ -1,4 +1,5 @@
 import * as RadixDialog from '@radix-ui/react-dialog'
+import { JSX } from 'preact/jsx-runtime'
 
 type DialogProps = {
   children: JSX.Element | false
@@ -15,6 +16,7 @@ export function Dialog({ children, open, onOpenChange }: DialogProps) {
           onPointerDownOutside={(e) => e.preventDefault()}
           className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10/12 bg-background p-4 rounded-xl outline-none z-40 border border-secondary"
         >
+          <RadixDialog.Title className="hidden" />
           {children}
         </RadixDialog.Content>
       </RadixDialog.Portal>

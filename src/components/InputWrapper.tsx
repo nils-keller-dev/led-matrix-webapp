@@ -1,3 +1,5 @@
+import { JSX } from 'preact/jsx-runtime'
+
 type InputWrapperProps = {
   children: JSX.Element
   title: string
