@@ -31,7 +31,7 @@ export function TextArea({
     <textarea
       placeholder={placeholder}
       enterkeyhint="send"
-      className="bg-background text-primary resize-none w-full h-[130px] border border-secondary rounded-md outline-none py-3 px-4"
+      className="bg-background text-primary resize-none w-full h-[130px] border border-secondary rounded-md outline-hidden py-3 px-4"
       onBlur={handleChange}
       onKeyDown={onKeyDown}
       onPointerMove={(event) => {

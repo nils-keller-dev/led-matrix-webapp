@@ -86,7 +86,7 @@ export function ImageCropper({ src, onChangeCrop }: ImageCropperProps) {
       <ReactCrop
         crop={crop}
         onChange={setCrop}
-        className="outline-none"
+        className="outline-hidden w-full"
         onComplete={onCompleteCrop}
         minHeight={10}
         minWidth={10}
@@ -98,7 +98,7 @@ export function ImageCropper({ src, onChangeCrop }: ImageCropperProps) {
           ref={imgRef}
           src={src}
           onLoad={onLoad}
-          className="outline outline-1 -outline-offset-1 outline-secondary"
+          className="outline -outline-offset-1 outline-secondary w-full"
         />
       </ReactCrop>
     </div>

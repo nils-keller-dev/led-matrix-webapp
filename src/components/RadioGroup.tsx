@@ -19,7 +19,7 @@ export function RadioGroup({
         <>
           <label
             key={value}
-            className="size-10 flex justify-center items-center rounded-md has-[:checked]:bg-secondary"
+            className="size-10 flex justify-center items-center rounded-md has-checked:bg-secondary"
             htmlFor={value}
           >
             <input

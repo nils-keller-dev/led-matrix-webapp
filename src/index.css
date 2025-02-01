@@ -1,3 +1,14 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: #fafafa;
+  --color-muted-foreground: #a1a1aa;
+  --color-secondary: #303036;
+  --color-background: #09090b;
+  --font-blazeface: ohno-blazeface;
+}
+
+@utility size-screen {
+  width: 100vw;
+  height: 100vh;
+}

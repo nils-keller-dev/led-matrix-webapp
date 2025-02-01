@@ -95,8 +95,8 @@ export function Carousel({
         </div>
       </div>
 
-      <div className="absolute top-0 left-0 h-full w-1/12 bg-gradient-to-r from-background via-50% via-background/65 to-transparent" />
-      <div className="absolute top-0 right-0 h-full w-1/12 bg-gradient-to-l from-background via-50% via-background/65 to-transparent" />
+      <div className="absolute top-0 left-0 h-full w-1/12 bg-linear-to-r from-background via-50% via-background/65 to-transparent" />
+      <div className="absolute top-0 right-0 h-full w-1/12 bg-linear-to-l from-background via-50% via-background/65 to-transparent" />
 
       <IconButton
         aria-label="previous"
