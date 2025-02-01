@@ -43,7 +43,7 @@ export function Clock(initialValues: ClockSettingsProps) {
       </InputWrapper>
 
       <div className="flex flex-col border border-secondary rounded-md items-center justify-between">
-        <div className="flex justify-between w-full px-4 py-3 relative">
+        <div className="flex justify-between w-full px-4 py-3 relative gap-4">
           <label
             className="size-full absolute left-0 top-0"
             htmlFor="background"
@@ -55,9 +55,9 @@ export function Clock(initialValues: ClockSettingsProps) {
             onChange={updateBackgroundColor}
           />
         </div>
-        <div className="flex justify-between w-full items-center px-4 py-3">
+        <div className="flex justify-between w-full items-center px-4 py-3 gap-4">
           <span className="text-muted-foreground">Brightness</span>
-          <div className="w-55">
+          <div className="w-55 max-w-55">
             <Slider
               min={0}
               max={100}
