@@ -8,10 +8,9 @@ type InputWrapperProps = {
 
 export function InputWrapper({ title, children, htmlFor }: InputWrapperProps) {
   return (
-    <div className="flex border border-secondary rounded-md items-center justify-between py-3 px-4">
-      <label className="text-muted-foreground" htmlFor={htmlFor}>
-        {title}
-      </label>
+    <div className="flex border border-secondary rounded-md items-center justify-between py-3 px-4 relative">
+      <label className="size-full absolute left-0" htmlFor={htmlFor} />
+      <span className="text-muted-foreground">{title}</span>
       {children}
     </div>
   )

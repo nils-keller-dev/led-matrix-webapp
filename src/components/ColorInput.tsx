@@ -2,13 +2,15 @@ import { useSignal } from '@preact/signals'
 import debounceFunction from 'debounce-fn'
 import { useCallback, useEffect, useRef } from 'preact/hooks'
 import { Skeleton } from './Skeleton'
+import { InputWrapper } from './InputWrapper'
 
 type ColorInputProps = {
   initialValue: string
+  title: string
   onChange?: (color: string) => void
 }
 
-export function ColorInput({ initialValue, onChange }: ColorInputProps) {
+export function ColorInput({ initialValue, title, onChange }: ColorInputProps) {
   const colorInput = useRef<HTMLInputElement>(null)
 
   const displayColor = useSignal(initialValue)
@@ -46,25 +48,24 @@ export function ColorInput({ initialValue, onChange }: ColorInputProps) {
   }, [colorValue.value])
 
   return (
-    <div className="w-full py-3 rounded-md border border-secondary bg-background flex items-center relative">
-      <label htmlFor={uuid} className="size-full absolute" />
-      <div
-        className="size-6 rounded-md border border-secondary ml-4"
-        style={{ backgroundColor: displayColor.value }}
-      />
-      <input
-        id={uuid}
-        aria-label="color picker"
-        ref={colorInput}
-        type="color"
-        value={colorValue.value}
-        className="opacity-0 size-0"
-        onChange={onColorChange}
-      />
-      {colorName.value ? null : (
-        <Skeleton className="w-[100px] h-[20px] ml-3" />
-      )}
-      <span className="ml-3 text-primary">{colorName.value}</span>
-    </div>
+    <InputWrapper title={title} htmlFor={uuid}>
+      <div className="flex gap-3">
+        <input
+          id={uuid}
+          aria-label="color picker"
+          ref={colorInput}
+          type="color"
+          value={colorValue.value}
+          className="opacity-0 size-0 absolute"
+          onChange={onColorChange}
+        />
+        {colorName.value ? null : <Skeleton className="w-25 h-5" />}
+        <span className="text-primary">{colorName.value}</span>
+        <div
+          className="size-6 rounded-md border border-secondary"
+          style={{ backgroundColor: displayColor.value }}
+        />
+      </div>
+    </InputWrapper>
   )
 }
