@@ -8,6 +8,7 @@ interface Global {
 interface Clock {
   color?: number[]
   backgroundColor?: number[]
+  backgroundBrightness?: number
 }
 
 interface Music {

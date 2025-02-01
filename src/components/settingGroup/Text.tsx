@@ -85,11 +85,13 @@ export function Text(initialValues: TextSettingsProps) {
           />
         </div>
       </InputWrapper>
-      <ColorInput
-        initialValue={rgbToHex(initialValues.color)}
-        title="Color"
-        onChange={updateColor}
-      />
+      <InputWrapper title="Color" htmlFor="color">
+        <ColorInput
+          initialValue={rgbToHex(initialValues.color)}
+          id="color"
+          onChange={updateColor}
+        />
+      </InputWrapper>
     </div>
   )
 }

@@ -82,6 +82,9 @@ export default function App() {
                   <Clock
                     color={state.value.clock.color!}
                     backgroundColor={state.value.clock.backgroundColor!}
+                    backgroundBrightness={
+                      state.value.clock.backgroundBrightness!
+                    }
                   />
                 )}
                 {currentCarouselIndex.value === 1 && (
