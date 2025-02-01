@@ -5,6 +5,7 @@ import { ColorInput } from '../ColorInput'
 
 type ClockSettingsProps = {
   color: number[]
+  backgroundColor: number[]
 }
 
 export function Clock(initialValues: ClockSettingsProps) {
@@ -15,10 +16,23 @@ export function Clock(initialValues: ClockSettingsProps) {
     })
   }
 
+  const updateBackgroundColor = (backgroundColor: string) => {
+    const rgbColor = hexToRgb(backgroundColor)
+    patchState({ clock: { backgroundColor: rgbColor } }).then(() => {
+      state.value!.clock.backgroundColor = rgbColor
+    })
+  }
+
   return (
-    <ColorInput
-      initialValue={rgbToHex(initialValues.color)}
-      onChange={updateColor}
-    />
+    <div className="flex flex-col gap-5">
+      <ColorInput
+        initialValue={rgbToHex(initialValues.color)}
+        onChange={updateColor}
+      />
+      <ColorInput
+        initialValue={rgbToHex(initialValues.backgroundColor)}
+        onChange={updateBackgroundColor}
+      />
+    </div>
   )
 }

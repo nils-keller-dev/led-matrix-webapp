@@ -79,7 +79,10 @@ export default function App() {
             {currentCarouselIndex.value >= 0 && (
               <>
                 {currentCarouselIndex.value === 0 && (
-                  <Clock color={state.value.clock.color!} />
+                  <Clock
+                    color={state.value.clock.color!}
+                    backgroundColor={state.value.clock.backgroundColor!}
+                  />
                 )}
                 {currentCarouselIndex.value === 1 && (
                   <Music fullscreen={state.value.music.fullscreen!} />

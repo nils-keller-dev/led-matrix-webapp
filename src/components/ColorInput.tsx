@@ -15,6 +15,8 @@ export function ColorInput({ initialValue, onChange }: ColorInputProps) {
   const colorValue = useSignal(initialValue)
   const colorName = useSignal('')
 
+  const uuid = self.crypto.randomUUID()
+
   const onColorChange = () => {
     const color = colorInput.current?.value ?? ''
     if (!color || color === colorValue.value) return
@@ -45,13 +47,13 @@ export function ColorInput({ initialValue, onChange }: ColorInputProps) {
 
   return (
     <div className="w-full py-3 rounded-md border border-secondary bg-background flex items-center relative">
-      <label htmlFor="picker" className="size-full absolute" />
+      <label htmlFor={uuid} className="size-full absolute" />
       <div
         className="size-6 rounded-md border border-secondary ml-4"
         style={{ backgroundColor: displayColor.value }}
       />
       <input
-        id="picker"
+        id={uuid}
         aria-label="color picker"
         ref={colorInput}
         type="color"
