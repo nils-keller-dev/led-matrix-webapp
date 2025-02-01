@@ -66,7 +66,7 @@ export function Text(initialValues: TextSettingsProps) {
         onChange={updateText}
       />
       <InputWrapper title="Size">
-        <div className="w-[220px]">
+        <div className="w-55">
           <Slider
             min={1}
             max={5}
@@ -76,7 +76,7 @@ export function Text(initialValues: TextSettingsProps) {
         </div>
       </InputWrapper>
       <InputWrapper title="Speed">
-        <div className="w-[220px]">
+        <div className="w-55">
           <Slider
             min={0}
             max={10}
@@ -87,6 +87,7 @@ export function Text(initialValues: TextSettingsProps) {
       </InputWrapper>
       <ColorInput
         initialValue={rgbToHex(initialValues.color)}
+        title="Color"
         onChange={updateColor}
       />
     </div>
