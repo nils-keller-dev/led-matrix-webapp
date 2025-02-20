@@ -18,6 +18,6 @@
       "react/jsx-runtime": ["./node_modules/preact/jsx-runtime"]
     }
   },
-  "include": ["./src/**/*"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "include": ["./src/**/*", "./tests/**/*"],
+  "exclude": ["node_modules"]
 }
