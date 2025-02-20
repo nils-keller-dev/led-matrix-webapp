@@ -3,22 +3,36 @@ import { describe, expect, test, vi } from 'vitest'
 import { Switch } from '../../src/components/Switch'
 
 describe('Switch', () => {
-  test('renders with correct initialValue', async () => {
-    const { container, getByPlaceholderText } = render(
-      <Switch initialValue={true} onChange={() => {}} />
-    )
+  test.each([true, false])(
+    'renders correctly with initialValue = %s',
+    (initialValue) => {
+      const { getByPlaceholderText } = render(
+        <Switch initialValue={initialValue} onChange={() => {}} />
+      )
 
-    const checkbox = getByPlaceholderText('Text') as HTMLInputElement
-    expect(checkbox.checked).toBe(true)
+      const checkbox = getByPlaceholderText('Text') as HTMLInputElement
+      expect(checkbox.checked).toBe(initialValue)
+    }
+  )
 
-    const switchElement = container.querySelector('label')?.firstElementChild
-    expect(switchElement?.classList).toContain('bg-primary')
-    expect(switchElement?.firstElementChild?.classList).toContain(
-      'translate-x-full'
-    )
-  })
+  test.each`
+    initialValue | classWrapper      | classChild
+    ${true}      | ${'bg-primary'}   | ${'translate-x-full'}
+    ${false}     | ${'bg-secondary'} | ${'translate-x-0'}
+  `(
+    'renders with correct classes for $initialValue value',
+    ({ initialValue, classWrapper, classChild }) => {
+      const { container } = render(
+        <Switch initialValue={initialValue} onChange={() => {}} />
+      )
 
-  test('renders with custom id prop', async () => {
+      const switchElement = container.querySelector('label')?.firstElementChild
+      expect(switchElement?.classList).toContain(classWrapper)
+      expect(switchElement?.firstElementChild?.classList).toContain(classChild)
+    }
+  )
+
+  test('renders with custom id prop', () => {
     const { container } = render(
       <Switch initialValue={false} onChange={() => {}} id="customId" />
     )
@@ -31,7 +45,7 @@ describe('Switch', () => {
     )
   })
 
-  test('calls onChange and updates value', async () => {
+  test('calls onChange and updates value', () => {
     const onChange = vi.fn()
     const { getByPlaceholderText } = render(
       <Switch initialValue={false} onChange={onChange} />
