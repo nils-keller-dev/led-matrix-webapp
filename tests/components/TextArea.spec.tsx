@@ -50,4 +50,19 @@ describe('TextArea', () => {
 
     expect(blur).toHaveBeenCalledOnce()
   })
+
+  test('prevents default on pointer move', () => {
+    const onOuterPointerMove = vi.fn()
+
+    const { container } = render(
+      <div onPointerMove={onOuterPointerMove}>
+        <TextArea initialValue="" onChange={() => {}} />
+      </div>
+    )
+
+    const textarea = container.querySelector('textarea') as HTMLTextAreaElement
+    fireEvent.pointerMove(textarea)
+
+    expect(onOuterPointerMove).toHaveBeenCalledTimes(0)
+  })
 })
