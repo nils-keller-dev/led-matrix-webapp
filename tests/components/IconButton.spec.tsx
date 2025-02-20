@@ -23,11 +23,7 @@ describe('IconButton', () => {
   })
 
   test('renders children', () => {
-    const { container } = render(
-      <IconButton>
-        <span>Icon</span>
-      </IconButton>
-    )
-    expect(container.textContent).toContain('Icon')
+    const { getByText } = render(<IconButton>child content</IconButton>)
+    expect(getByText('child content')).toBeDefined()
   })
 })

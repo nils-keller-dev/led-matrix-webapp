@@ -1,9 +1,9 @@
-import { render } from '@testing-library/preact'
+import { fireEvent, render } from '@testing-library/preact'
 import { describe, expect, test, vi } from 'vitest'
 import { Button } from '../../src/components/Button'
 
 describe('Button', () => {
-  test('renders button with text', () => {
+  test('renders with text', () => {
     const { container } = render(
       <Button text="Button text" onClick={() => {}} />
     )
@@ -11,10 +11,11 @@ describe('Button', () => {
     expect(container.textContent).toContain('Button text')
   })
 
-  test('renders secondary button', () => {
+  test('applies correct secondary classes', () => {
     const { container } = render(
       <Button text="Button text" isSecondary onClick={() => {}} />
     )
+
     expect(container.firstElementChild?.classList).toContain(
       'border-muted-foreground'
     )
@@ -25,7 +26,8 @@ describe('Button', () => {
     const { container } = render(
       <Button text="Button text" onClick={onClick} />
     )
-    container.firstElementChild?.dispatchEvent(new MouseEvent('click'))
+
+    fireEvent.click(container.firstElementChild as Element)
     expect(onClick).toHaveBeenCalled()
   })
 })

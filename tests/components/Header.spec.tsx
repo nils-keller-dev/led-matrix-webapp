@@ -7,8 +7,8 @@ vi.mock('../../package.json', () => ({
 }))
 
 describe('Header', () => {
-  test('renders Header with version number', () => {
-    const { container } = render(<Header />)
-    expect(container.querySelector('a')?.textContent).toContain('v0.0.0')
+  test('renders with version number', () => {
+    const { getByText } = render(<Header />)
+    expect(getByText('v0.0.0')).toBeDefined()
   })
 })
