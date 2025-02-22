@@ -14,6 +14,7 @@ describe('getState', () => {
 
     const state = await getState()
 
+    expect(fetchWithCheck).toHaveBeenCalledWith('/state')
     expect(state).toEqual(mockState)
   })
 })
