@@ -7,7 +7,7 @@ vi.mock('../../../src/components/image/ImageList', () => ({
   ImageList: vi.fn()
 }))
 
-describe('Image Component', () => {
+describe('Image', () => {
   test('renders ImageList with the correct selected image', () => {
     const image = 'test-image'
     render(<Image image={image} />)
