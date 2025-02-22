@@ -5,7 +5,7 @@ import { fetchWithCheck } from '../../src/utils/fetchWithCheck'
 vi.mock('../../src/utils/fetchWithCheck')
 
 describe('getImages', () => {
-  test('calls fetchWithCheck and returns the expected state', async () => {
+  test('calls fetchWithCheck and returns the images', async () => {
     const mockState = { images: ['image1.png', 'image2.png'] }
     const mockResponse = {
       json: vi.fn().mockResolvedValue(mockState)
