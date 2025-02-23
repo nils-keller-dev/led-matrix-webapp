@@ -9,6 +9,7 @@ export default defineConfig({
         '**/enums/**',
         '**/interfaces/**',
         '**/constants/**',
+        '**/main.tsx',
         ...coverageConfigDefaults.exclude
       ]
     }
