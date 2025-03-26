@@ -1,4 +1,4 @@
-import { mount } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import { describe, expect, test } from 'vitest'
 import { Skeleton } from '../../src/components/Skeleton'
 
@@ -9,10 +9,9 @@ describe('Skeleton', () => {
   })
 
   test('renders with className props', () => {
-    const wrapper = mount(<Skeleton className="className1 className2" />)
+    const wrapper = shallow(<Skeleton className="className1 className2" />)
 
-    const element = wrapper.getDOMNode()
-    expect(element.classList).toContain('className1')
-    expect(element.classList).toContain('className2')
+    expect(wrapper.hasClass('className1')).toBe(true)
+    expect(wrapper.hasClass('className2')).toBe(true)
   })
 })
