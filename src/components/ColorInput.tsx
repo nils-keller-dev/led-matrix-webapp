@@ -1,6 +1,7 @@
 import { useSignal } from '@preact/signals'
 import debounceFunction from 'debounce-fn'
 import { useCallback, useEffect, useRef } from 'preact/hooks'
+import { fetchColorName } from '../utils/fetchColorName'
 import { Skeleton } from './Skeleton'
 
 type ColorInputProps = {
@@ -37,11 +38,7 @@ export function ColorInput({ initialValue, id, onChange }: ColorInputProps) {
   )
 
   useEffect(() => {
-    fetch(
-      `https://www.thecolorapi.com/id?hex=${colorValue.value.replace('#', '')}`
-    )
-      .then((response) => response.json())
-      .then((data) => (colorName.value = data.name.value))
+    fetchColorName(colorValue.value).then((name) => (colorName.value = name))
   }, [colorValue.value])
 
   return (
