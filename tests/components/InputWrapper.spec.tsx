@@ -1,27 +1,35 @@
-import { render } from '@testing-library/preact'
+import { mount, shallow } from 'enzyme'
 import { describe, expect, test } from 'vitest'
 import { InputWrapper } from '../../src/components/InputWrapper'
 
 describe('InputWrapper', () => {
-  test('renders title and children', () => {
-    const { getByText } = render(
+  test('matches snapshot', () => {
+    const wrapper = mount(
       <InputWrapper title="test title">
         <div>child content</div>
       </InputWrapper>
     )
-    expect(getByText('test title')).toBeDefined()
-    expect(getByText('child content')).toBeDefined()
+    expect(wrapper.html()).toMatchSnapshot()
+  })
+
+  test('renders title and children', () => {
+    const wrapper = shallow(
+      <InputWrapper title="test title">
+        <div>child content</div>
+      </InputWrapper>
+    )
+
+    expect(wrapper.text()).toContain('test title')
+    expect(wrapper.text()).toContain('child content')
   })
 
   test('renders with custom htmlFor prop', () => {
-    const { container } = render(
+    const wrapper = shallow(
       <InputWrapper title="" htmlFor="customId">
         <div></div>
       </InputWrapper>
     )
 
-    expect(container.querySelector('label')?.getAttribute('for')).toBe(
-      'customId'
-    )
+    expect(wrapper.find('label').prop('htmlFor')).toBe('customId')
   })
 })
