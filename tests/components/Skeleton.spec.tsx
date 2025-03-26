@@ -1,12 +1,18 @@
-import { render } from '@testing-library/preact'
+import { mount } from 'enzyme'
 import { describe, expect, test } from 'vitest'
 import { Skeleton } from '../../src/components/Skeleton'
 
 describe('Skeleton', () => {
-  test('renders with className props', () => {
-    const { container } = render(<Skeleton className="className1 className2" />)
+  test('matches snapshot', () => {
+    const wrapper = mount(<Skeleton />)
+    expect(wrapper.html()).toMatchSnapshot()
+  })
 
-    expect(container.firstElementChild?.classList).toContain('className1')
-    expect(container.firstElementChild?.classList).toContain('className2')
+  test('renders with className props', () => {
+    const wrapper = mount(<Skeleton className="className1 className2" />)
+
+    const element = wrapper.getDOMNode()
+    expect(element.classList).toContain('className1')
+    expect(element.classList).toContain('className2')
   })
 })
