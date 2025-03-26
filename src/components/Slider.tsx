@@ -49,7 +49,7 @@ export function Slider({ min, max, initialValue = 0, onChange }: SliderProps) {
   return (
     <span
       ref={sliderRef}
-      className="relative flex items-center w-full touch-none"
+      className="relative flex items-center w-full touch-none h-6"
       onPointerDown={startDrag}
     >
       <span className="relative h-2 w-full overflow-hidden rounded-full bg-secondary">
