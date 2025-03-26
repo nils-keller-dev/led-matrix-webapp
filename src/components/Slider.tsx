@@ -26,8 +26,6 @@ export function Slider({ min, max, initialValue = 0, onChange }: SliderProps) {
   }
 
   const startDrag = (event: PointerEvent) => {
-    event.stopPropagation()
-
     handleDrag(event)
     addEventListener('pointermove', handleDrag)
     addEventListener('pointerup', stopDrag)
