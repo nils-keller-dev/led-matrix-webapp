@@ -14,7 +14,7 @@
     "format": "prettier --write 'src/**/*.{js,jsx,css,ts,tsx}'"
   },
   "dependencies": {
-    "@preact/signals": "^2.0.1",
+    "@preact/signals": "^2.0.2",
     "@radix-ui/react-dialog": "^1.1.6",
     "debounce-fn": "^6.0.0",
     "embla-carousel-react": "^8.5.2",
